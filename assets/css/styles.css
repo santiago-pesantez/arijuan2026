@@ -1,0 +1,148 @@
+/* Estilos placeholder. El diseño definitivo viene en la Iteración 2 (clon de Zola). */
+
+:root {
+  --color-fondo: #faf7f2;
+  --color-texto: #2b2b2b;
+  --color-acento: #b08d57;
+  --color-acento-suave: #e8dccb;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--color-texto);
+  background: var(--color-fondo);
+  line-height: 1.6;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+h1 { font-size: 2.5rem; text-align: center; margin: 0.5rem 0; }
+h2 { font-size: 1.5rem; }
+
+.invitacion {
+  background: white;
+  border: 1px solid var(--color-acento-suave);
+  padding: 3rem 2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.invitacion .saludo {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.invitacion .novios {
+  font-family: var(--serif);
+  font-size: 3rem;
+  margin: 1.5rem 0;
+  color: var(--color-acento);
+}
+
+.invitacion .info {
+  margin: 1.5rem 0;
+}
+
+.botones {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-acento);
+  color: white;
+  text-decoration: none;
+  border: none;
+  font-family: var(--sans);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn-secundario {
+  background: transparent;
+  color: var(--color-acento);
+  border: 1px solid var(--color-acento);
+}
+
+.error {
+  background: #fdf0f0;
+  border: 1px solid #e0aaaa;
+  color: #7a2020;
+  padding: 1rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+form label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  font-weight: 500;
+}
+
+form input[type="text"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+form fieldset {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.asistente {
+  border-top: 1px solid var(--color-acento-suave);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+table th { background: var(--color-acento-suave); }
+
+@media (max-width: 600px) {
+  .invitacion { padding: 2rem 1rem; }
+  .invitacion .novios { font-size: 2.25rem; }
+  h1 { font-size: 2rem; }
+}

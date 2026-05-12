@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmar asistencia | Ari & Juan</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <main>
+    <h1>Confirmar asistencia</h1>
+    <p>Hola <span id="saludo"></span>, por favor completa los datos a continuación. Al enviar, se abrirá WhatsApp con tu confirmación lista para mandar a los novios.</p>
+
+    <p id="error" class="error" hidden></p>
+
+    <form id="form-rsvp" hidden>
+      <fieldset>
+        <legend>¿Asistirás a la ceremonia?</legend>
+        <label><input type="radio" name="asistencia" value="si" required> Sí, ahí estaré</label>
+        <label><input type="radio" name="asistencia" value="no"> No podré asistir</label>
+      </fieldset>
+
+      <fieldset id="seccion-cocktail">
+        <legend>¿Asistirás al cocktail posterior?</legend>
+        <label><input type="radio" name="cocktail" value="si"> Sí</label>
+        <label><input type="radio" name="cocktail" value="no"> No</label>
+      </fieldset>
+
+      <h3>Datos de los asistentes</h3>
+      <div id="asistentes"></div>
+
+      <label>Mensaje para los novios (opcional)
+        <textarea name="mensaje" rows="3"></textarea>
+      </label>
+
+      <div class="botones">
+        <button type="submit" class="btn">Enviar por WhatsApp</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/rsvp.js"></script>
+</body>
+</html>

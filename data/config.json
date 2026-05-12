@@ -1,0 +1,30 @@
+{
+  "novios": {
+    "ella": "Ari",
+    "el": "Juan"
+  },
+  "fecha": {
+    "iso": "2026-12-31T17:00:00-05:00",
+    "texto": "Fecha por confirmar"
+  },
+  "ceremonia": {
+    "lugar": "Por confirmar",
+    "direccion": "Por confirmar",
+    "hora": "Por confirmar",
+    "mapsUrl": ""
+  },
+  "cocktail": {
+    "lugar": "Por confirmar",
+    "direccion": "Por confirmar",
+    "hora": "Por confirmar",
+    "mapsUrl": ""
+  },
+  "rsvp": {
+    "telefonoWhatsapp": "593999999999",
+    "fechaLimite": "Por confirmar"
+  },
+  "sitio": {
+    "dominio": "arijuan2026.com",
+    "url": "https://arijuan2026.com"
+  }
+}
