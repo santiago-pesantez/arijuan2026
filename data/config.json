@@ -1,30 +1,58 @@
 {
   "novios": {
-    "ella": "Ari",
-    "el": "Juan"
+    "ella": "Ariana Rojas",
+    "el": "Juan Patiño",
+    "ellaCorto": "Ariana",
+    "elCorto": "Juan"
   },
+  "hashtag": "#AriAndJuan",
+  "ciudad": "Cuenca, Ecuador",
   "fecha": {
-    "iso": "2026-12-31T17:00:00-05:00",
-    "texto": "Fecha por confirmar"
+    "iso": "2026-07-25T11:00:00-05:00",
+    "texto": "Sábado, 25 de julio de 2026",
+    "textoCorto": "25 julio 2026"
   },
   "ceremonia": {
-    "lugar": "Por confirmar",
-    "direccion": "Por confirmar",
-    "hora": "Por confirmar",
+    "fecha": "Sábado, 25 de julio de 2026",
+    "hora": "11:00 AM a 12:00 PM",
+    "lugar": "La Muralla",
+    "direccion": "Baños de Cuenca",
     "mapsUrl": ""
   },
   "cocktail": {
-    "lugar": "Por confirmar",
-    "direccion": "Por confirmar",
-    "hora": "Por confirmar",
-    "mapsUrl": ""
+    "hora": "12:00 PM en adelante",
+    "lugar": "La Muralla (mismo sitio)",
+    "direccion": "Baños de Cuenca",
+    "mapsUrl": "",
+    "menu": ["Clásico", "Vegetariano"]
   },
   "rsvp": {
     "telefonoWhatsapp": "593999999999",
-    "fechaLimite": "Por confirmar"
+    "fechaLimite": "30 de junio de 2026"
+  },
+  "vestimenta": {
+    "codigo": "Elegante-casual para verano andino",
+    "detalles": "Ceremonia al aire libre en la mañana. Vestidos ligeros, trajes de lino o colores claros. Tacones bajos o cuñas por el terreno. Saco y pantalón de tela, corbata opcional.",
+    "clima": "Cuenca en julio: fresco en la mañana (12-15°C), soleado al mediodía (20-22°C)."
+  },
+  "regalos": {
+    "modalidad": "Cofre para sobres el día de la boda + transferencia bancaria.",
+    "datosBancarios": "Por confirmar",
+    "registry": null
+  },
+  "estilo": {
+    "descripcion": "Rústico, bohemio, elegante",
+    "colores": ["Verde salvia", "Blanco marfil", "Terracota"]
+  },
+  "invitados": {
+    "estimado": 130
   },
   "sitio": {
     "dominio": "arijuan2026.com",
     "url": "https://arijuan2026.com"
+  },
+  "backend": {
+    "url": "",
+    "habilitado": false
   }
 }

@@ -5,6 +5,7 @@ async function inicializar() {
   const errorEl = document.getElementById('error');
   const formEl = document.getElementById('form-rsvp');
   const saludoEl = document.getElementById('saludo');
+  const limiteEl = document.getElementById('fecha-limite');
 
   try {
     const id = obtenerIdInvitado();
@@ -24,12 +25,13 @@ async function inicializar() {
     configActual = config;
     invitadoActual = invitado;
 
-    saludoEl.textContent = `${invitado.saludo || invitado.nombre}`;
+    saludoEl.textContent = invitado.saludo || invitado.nombre;
+    if (limiteEl) limiteEl.textContent = config.rsvp.fechaLimite;
 
     const seccionCocktail = document.getElementById('seccion-cocktail');
     if (!invitado.incluyeCocktail) seccionCocktail.hidden = true;
 
-    construirInputsAsistentes(invitado.cantidadInvitaciones);
+    construirInputsAsistentes(invitado.cantidadInvitaciones, config.cocktail.menu);
 
     formEl.hidden = false;
     formEl.addEventListener('submit', enviarRSVP);
@@ -40,24 +42,29 @@ async function inicializar() {
   }
 }
 
-function construirInputsAsistentes(cantidad) {
+function construirInputsAsistentes(cantidad, opcionesMenu) {
   const cont = document.getElementById('asistentes');
+  const opcionesHtml = opcionesMenu
+    .map(o => `<option value="${o}">${o}</option>`)
+    .join('');
+
   for (let i = 1; i <= cantidad; i++) {
     const wrap = document.createElement('div');
     wrap.className = 'asistente';
     wrap.innerHTML = `
-      <h4>Invitado ${i}</h4>
-      <label>Nombre <input type="text" name="nombre_${i}" required></label>
+      <h4>Asistente ${i}</h4>
+      <label>Nombre completo
+        <input type="text" name="nombre_${i}" required>
+      </label>
       <label>Preferencia de menú
         <select name="menu_${i}" required>
           <option value="">Selecciona</option>
-          <option value="carne">Carne</option>
-          <option value="pollo">Pollo</option>
-          <option value="pescado">Pescado</option>
-          <option value="vegetariano">Vegetariano</option>
+          ${opcionesHtml}
         </select>
       </label>
-      <label>Restricciones o alergias <input type="text" name="restricciones_${i}"></label>
+      <label>Restricciones alimentarias o alergias (opcional)
+        <input type="text" name="restricciones_${i}">
+      </label>
     `;
     cont.appendChild(wrap);
   }
@@ -69,6 +76,7 @@ function enviarRSVP(ev) {
 
   const asistencia = fd.get('asistencia');
   const cocktail = fd.get('cocktail') || 'no aplica';
+  const traeAcompanante = fd.get('acompanante') || 'no';
   const mensaje = fd.get('mensaje') || '';
 
   const asistentes = [];
@@ -81,18 +89,19 @@ function enviarRSVP(ev) {
   }
 
   const lineas = [
-    `*RSVP - ${configActual.novios.ella} & ${configActual.novios.el}*`,
+    `*RSVP - ${configActual.novios.ellaCorto} & ${configActual.novios.elCorto}*`,
     ``,
     `Invitado: ${invitadoActual.nombre}`,
     `ID: ${invitadoActual.id}`,
-    `Asistirá: ${asistencia}`,
-    `Cocktail: ${cocktail}`,
+    `Asistirá a la ceremonia: ${asistencia}`,
+    `Asistirá al cocktail: ${cocktail}`,
+    `Trae acompañante (+1): ${traeAcompanante}`,
     ``,
     `*Asistentes:*`
   ];
 
   asistentes.forEach((a, idx) => {
-    lineas.push(`${idx + 1}. ${a.nombre} | Menú: ${a.menu}${a.restricciones ? ` | Restricciones: ${a.restricciones}` : ''}`);
+    lineas.push(`${idx + 1}. ${a.nombre} | Menú: ${a.menu}${a.restricciones ? ` | Alergias: ${a.restricciones}` : ''}`);
   });
 
   if (mensaje.trim()) {

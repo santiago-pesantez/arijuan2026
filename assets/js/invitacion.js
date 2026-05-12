@@ -18,9 +18,12 @@ async function renderInvitacion() {
     }
 
     document.getElementById('saludo').textContent = invitado.saludo || invitado.nombre;
-    document.getElementById('novios').textContent = `${config.novios.ella} & ${config.novios.el}`;
-    document.getElementById('fecha').textContent = config.fecha.texto;
-    document.getElementById('lugar').textContent = config.ceremonia.lugar;
+    document.getElementById('novios').textContent = `${config.novios.ellaCorto || config.novios.ella} & ${config.novios.elCorto || config.novios.el}`;
+    document.getElementById('fecha').textContent = config.ceremonia.fecha;
+    document.getElementById('hora').textContent = config.ceremonia.hora;
+    document.getElementById('lugar').textContent = `${config.ceremonia.lugar}, ${config.ceremonia.direccion}`;
+    const hashtagEl = document.getElementById('hashtag');
+    if (hashtagEl) hashtagEl.textContent = config.hashtag;
 
     const cocktail = document.getElementById('cocktail-msg');
     if (invitado.incluyeCocktail) {

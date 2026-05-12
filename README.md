@@ -1,118 +1,84 @@
 # AriJuan2026
 
-> Invitación digital y sitio web oficial de la boda de **Ari & Juan**, Ecuador 2026.
+> Invitación digital y sitio web oficial de la boda de **Ariana Rojas & Juan Patiño**, Cuenca, Ecuador.
 
-Sitio web estático hosteado en **GitHub Pages** bajo el dominio `AriJuan2026.com`. Reemplaza la invitación impresa con una experiencia digital personalizada por invitado, e incluye el sitio oficial de la boda con información, galería e RSVP.
+Sitio web estático hosteado en **GitHub Pages** bajo el dominio `arijuan2026.com`. Reemplaza la invitación impresa con una experiencia digital personalizada por invitado, e incluye el sitio oficial de la boda con información, galería y RSVP.
 
----
+## Datos de la boda
 
-## Objetivos
+| | |
+|---|---|
+| Novios | Ariana Rojas & Juan Patiño |
+| Fecha | Sábado, 25 de julio de 2026 |
+| Hora ceremonia | 11:00 AM a 12:00 PM |
+| Hora cóctel | 12:00 PM en adelante |
+| Lugar | La Muralla, Baños de Cuenca |
+| Hashtag | #AriAndJuan |
+| Invitados estimados | ~130 |
+| RSVP hasta | 30 de junio de 2026 |
+| Estilo | Rústico, bohemio, elegante |
+| Colores | Verde salvia, blanco marfil, terracota |
+| Menú | Clásico o Vegetariano |
+| Código de vestimenta | Elegante-casual para verano andino |
 
-- Reemplazar invitaciones impresas con una invitación digital elegante.
-- Replicar el *look & feel* del sitio que los novios están construyendo en [zola.com](https://zola.com), pero con **traducción completa al español** (Zola no la ofrece).
-- Permitir confirmar asistencia (RSVP) desde el navegador, con las respuestas llegando por WhatsApp a los novios.
-- Hacer **seguimiento** de quién abre la invitación y quién confirma asistencia.
-- Mantenerlo **liviano, funcional y de hosting gratuito**.
-
----
+Todos estos datos viven en `data/config.json` y se renderizan dinámicamente.
 
 ## Cómo lo experimenta el invitado
 
 1. Recibe por WhatsApp un mensaje con un enlace personalizado:
    `https://arijuan2026.com/?id={GUID-del-invitado}`
-2. Abre el enlace → ve su **invitación digital personalizada** (su nombre, mensaje, datos de la boda).
+2. Abre el enlace y ve su **invitación digital personalizada** (su nombre, mensaje, datos de la boda).
 3. Desde la invitación accede al **sitio oficial de la boda** (información del evento, galería, etc.).
-4. Hace click en **"Confirmar Asistencia"** (RSVP).
-5. Llena el formulario (asistencia, menú, etc.).
+4. Hace click en **"Confirmar asistencia"** (RSVP).
+5. Llena el formulario: asistencia, cóctel, +1, menú por asistente, alergias, mensaje.
 6. Al enviar, el formulario abre **WhatsApp** con un mensaje pre-llenado dirigido al número de los novios; el invitado lo envía.
-7. Las respuestas quedan registradas (mecanismo a definir, ver *Decisiones abiertas*).
+7. Las respuestas se guardan también en **Google Sheets** (vía Google Apps Script).
 
----
+## Arquitectura
 
-## Funcionalidades
-
-### 1. Invitación digital personalizada
-- A cada invitado se le asigna un **GUID** único.
-- La página lee el `id` del query string, lo busca en el archivo de invitados, y muestra los datos personalizados.
-- Si el GUID no existe → mensaje de error / invitación genérica.
-
-### 2. Sitio oficial de la boda
-- Información del evento (fecha, hora, lugar de ceremonia y de cocktail).
-- **Galería de fotos** optimizada para web (pocas fotos, formato moderno, lazy loading).
-- Diseño replicado del sitio Zola de los novios, traducido completamente al español.
-- *(Por decidir)* protección con contraseña.
-
-### 3. RSVP ("Confirmar Asistencia")
-- Formulario en español con preguntas estándar:
-  - ¿Asistirás a la ceremonia?
-  - ¿Asistirás al cocktail posterior?
-  - Preferencia de menú
-  - *(Más preguntas a definir)*
-- El RSVP recibe el `id` del invitado por query string para asociar la respuesta.
-- Al enviar:
-  - Se abre WhatsApp con un mensaje pre-llenado al número de los novios.
-  - La respuesta se guarda (mecanismo a definir).
-
-### 4. Gestión de invitados (admin)
-- Subir una **lista de invitados en JSON**.
-- El sistema asigna un GUID a cada invitado.
-- Generar links personalizados listos para enviar por WhatsApp.
-
-### 5. Envío de invitaciones
-- Proceso para enviar a cada invitado un mensaje de WhatsApp con su link personalizado.
-- *(Mecanismo exacto por decidir: manual con copy/paste, deep link `wa.me`, o WhatsApp Cloud API)*.
-
-### 6. Seguimiento (analytics)
-- Quiénes **abrieron** su invitación (registro por GUID).
-- Quiénes **confirmaron asistencia** y quiénes **no**.
-- Reporte simple para los novios.
-
----
-
-## Stack técnico (propuesta inicial)
-
-| Área | Propuesta |
+| Capa | Tecnología |
 |---|---|
 | Frontend | HTML + CSS + JavaScript vanilla |
 | Hosting | GitHub Pages (gratis) |
-| Dominio | AriJuan2026.com |
-| Datos de invitados | Archivo JSON |
-| Mensajería | WhatsApp (mecanismo por definir) |
-| Almacenamiento de RSVPs | Por definir (ver *Decisiones abiertas*) |
-| Analytics | Por definir (ver *Decisiones abiertas*) |
+| Dominio | arijuan2026.com (ya comprado) |
+| Lista de invitados | Google Sheets (fuente de verdad) |
+| Almacenamiento de RSVPs | Google Sheets vía Google Apps Script |
+| Mensajería | `wa.me` deep links (envío manual desde el WhatsApp de los novios) |
+| Analytics | Google Analytics 4 (pendiente de configurar) |
+| Idioma | Español únicamente |
 
----
+La lista de invitados con sus GUIDs vive en una hoja de Google Sheets. El sitio la consulta vía un endpoint de Google Apps Script. Las respuestas del RSVP se escriben en la misma hoja por el mismo endpoint. El repo público solo contiene código, sin datos personales de invitados.
+
+Durante desarrollo local, hay un `data/invitados.json` con datos ficticios que se usa como fallback cuando el endpoint de Apps Script no está configurado.
 
 ## Plan de trabajo
 
 ### Iteración 1: Estructura y funcionalidad
 - Estructura del repo y del sitio.
-- Sistema de carga de invitados desde JSON + asignación de GUIDs.
+- Carga de invitados desde Google Sheets (con fallback a JSON local).
 - Página de invitación personalizada.
-- Formulario de RSVP funcional.
-- Integración con WhatsApp (mecanismo elegido).
+- Formulario de RSVP funcional con persistencia en Sheets.
+- Integración con WhatsApp (`wa.me`).
 - Pruebas locales y en GitHub Pages.
 
 ### Iteración 2: Diseño
 - Replicar estructura, contenido y estilos del sitio Zola de los novios.
-- Traducción completa al español.
-- Galería de fotos optimizada.
+- Galería de fotos optimizada (hasta 20 fotos disponibles; ~5 mostradas).
 - Ajustes responsive.
 
 ### Iteración 3: Entrega
 - Revisión de contenido con los novios.
-- Conexión del dominio `AriJuan2026.com`.
+- Conexión final del dominio `arijuan2026.com`.
 - Pruebas finales y entrega.
 
----
+## Servir localmente
 
-## Decisiones abiertas
+```bash
+python -m http.server 8000
+```
 
-Estas decisiones afectan el diseño técnico y necesitan resolverse antes o durante la Iteración 1 (ver discusión en el chat / issues):
-
-1. **Mecanismo de WhatsApp**: `wa.me` deep links (gratis, manual) vs WhatsApp Cloud API (automático, requiere setup).
-2. **Almacenamiento de RSVPs**: GitHub Pages no puede escribir archivos. Opciones: solo WhatsApp, Google Sheets vía Apps Script, Firebase, Supabase, Formspree.
-3. **Privacidad**: repo público vs privado (GitHub Pages gratis requiere público).
-4. **Protección con contraseña**: sí/no, todo el sitio o solo el RSVP.
-5. **Analytics**: Google Analytics, Plausible, o tracking custom por GUID.
-6. **Idioma**: solo español, o también inglés para algunos invitados.
+Luego abrir:
+- `http://localhost:8000/?id=ari-juan-demo1` (invitación)
+- `http://localhost:8000/boda/` (sitio oficial)
+- `http://localhost:8000/rsvp/?id=ari-juan-demo1` (formulario RSVP)
+- `http://localhost:8000/admin/` (admin, oculto)
