@@ -4,48 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
-  <title>Admin | Ari & Juan</title>
+  <title>Admin | Ariana & Juan</title>
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .panel { background: #fff; border: 1px solid #e8dccb; padding: 1rem; margin: 1rem 0; }
+    .row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+    .row input[type=text], .row input[type=password] { flex: 1; min-width: 240px; }
+    code { background: #f0e9d6; padding: 0 .25rem; }
+    .btn-link { background: none; border: none; color: #b85c3c; cursor: pointer; padding: 0; text-decoration: underline; font-size: inherit; }
+    .estado { font-size: .85rem; color: #6c6c66; }
+  </style>
 </head>
 <body>
   <main>
-    <h1>Administración de invitados</h1>
-    <p>Esta página corre 100% en el navegador. No se sube nada al servidor: lo que generes lo descargas como JSON y lo subes al repo manualmente.</p>
+    <h1>Administración</h1>
+
+    <div class="panel">
+      <p class="estado" id="estado-backend">Cargando configuración...</p>
+      <p>La lista vive en Google Sheets. Para editar invitados, abrir la Sheet directamente. Esta página solo lee y genera links.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Token de admin</h3>
+      <p>Necesario para ver los teléfonos. Se guarda en este navegador (localStorage).</p>
+      <div class="row">
+        <input type="password" id="input-token" placeholder="Pega aquí tu ADMIN_TOKEN">
+        <button type="button" class="btn" id="btn-guardar-token">Guardar y refrescar</button>
+        <button type="button" class="btn btn-secundario" id="btn-refrescar">Refrescar</button>
+      </div>
+    </div>
 
     <p id="error" class="error" hidden></p>
 
-    <section>
-      <h2>1. Cargar lista de invitados</h2>
-      <p>Selecciona un archivo JSON con la lista. Si no seleccionas ninguno, se muestra el archivo actual del repo.</p>
-      <input type="file" id="input-json" accept="application/json">
-    </section>
-
-    <section>
-      <h2>2. Asignar GUIDs faltantes</h2>
-      <button type="button" class="btn" id="btn-asignar-guids">Asignar GUIDs</button>
-    </section>
-
-    <section>
-      <h2>3. Descargar JSON actualizado</h2>
-      <button type="button" class="btn btn-secundario" id="btn-descargar">Descargar invitados.json</button>
-      <p>Sube este archivo a <code>data/invitados.json</code> en el repo y haz commit para activar los cambios.</p>
-    </section>
-
-    <section>
-      <h2>Invitados</h2>
+    <div class="panel">
+      <h3>Invitados <span class="estado" id="contador"></span></h3>
       <table>
         <thead>
           <tr>
             <th>Nombre</th>
             <th>ID</th>
-            <th>Cantidad</th>
-            <th>Link</th>
+            <th>Cupos</th>
+            <th>Teléfono</th>
+            <th>Link de invitación</th>
             <th>WhatsApp</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
       </table>
-    </section>
+    </div>
   </main>
 
   <script src="../assets/js/data.js"></script>

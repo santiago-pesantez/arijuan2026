@@ -19,59 +19,73 @@ python -m http.server 8000
 # o
 npx serve .
 
-# Asignar GUIDs faltantes a la lista de invitados
+# Asignar GUIDs faltantes (modo CLI sobre el JSON local; NO sobre la Sheet)
 node scripts/generar-guids.mjs
 node scripts/generar-guids.mjs data/invitados.json data/invitados.json
 ```
 
-No hay tests automatizados todavía. Las pruebas se hacen abriendo las páginas en el navegador.
+Para asignar GUIDs sobre la Sheet de producción, usar la función `generarGuidsFaltantes()` desde el editor de Apps Script (ver `docs/google-sheets-setup.md`).
+
+No hay tests automatizados. Las pruebas se hacen abriendo las páginas en el navegador.
 
 ## Arquitectura
 
-Sitio web estático hosteado en GitHub Pages bajo el dominio `arijuan2026.com` (ver `CNAME`). Todo el contenido dinámico vive en el cliente (JavaScript vanilla); no hay backend propio.
+Sitio web estático hosteado en GitHub Pages bajo el dominio `arijuan2026.com` (ver `CNAME`). Frontend en HTML/CSS/JS vanilla. La fuente de verdad de los datos vive en una Google Sheet, accesible vía un Google Apps Script desplegado como Web App.
+
+### Flujo de datos
+
+1. Frontend hace `GET {backend.url}?action=invitados` para obtener la lista (sin teléfonos).
+2. La página de admin agrega `&token={ADMIN_TOKEN}` para obtener también los teléfonos.
+3. Al enviar RSVP: frontend hace `POST {backend.url}` con `{action: 'rsvp', ...}` ANTES de redirigir a `wa.me/{numero}?text=...`.
+4. Si `backend.habilitado` es false en `config.json`, todo lo de Sheets se reemplaza con el JSON local `data/invitados.json` (modo desarrollo). El RSVP igual va por wa.me, pero no se persiste en ningún lado.
 
 ### Estructura de páginas
 
-- `/index.html`: invitación digital personalizada. Lee `?id={GUID}` del query string, busca al invitado en `data/invitados.json` y muestra su saludo y datos. Si no hay `id` o no se encuentra, muestra error.
+- `/index.html`: invitación digital personalizada. Lee `?id={GUID}` del query string, busca al invitado y muestra su saludo y datos.
 - `/boda/index.html`: sitio oficial de la boda (info, galería). Diseño definitivo viene en Iteración 2.
-- `/rsvp/index.html`: formulario de confirmación de asistencia. También requiere `?id={GUID}`. Al enviar, construye un mensaje y abre `wa.me/{numero}?text={mensaje}` para que el invitado lo mande por WhatsApp.
-- `/admin/index.html`: página oculta (no linkeada, `noindex`) para gestionar la lista de invitados. Carga JSON, asigna GUIDs, exporta el archivo actualizado, y genera links + mensajes de WhatsApp para enviar invitaciones.
+- `/rsvp/index.html`: formulario de confirmación. Requiere `?id={GUID}`. POST a backend + redirect a `wa.me`.
+- `/admin/index.html`: página oculta (no linkeada, `noindex`). Pide token al usuario, muestra lista con teléfonos, genera links wa.me al teléfono específico de cada invitado.
 
 ### Datos
 
-- `data/config.json`: configuración del evento (novios, fechas, lugares, número de WhatsApp para RSVP, dominio). Cualquier dato de la boda configurable vive aquí.
-- `data/invitados.json`: lista pública de invitados con sus GUIDs. Estructura: `{ "invitados": [{ id, nombre, saludo, cantidadInvitaciones, incluyeCocktail, mensaje }] }`. **El JSON está en repo público; no incluir teléfonos, emails u otros datos sensibles.**
+- `data/config.json`: configuración del evento (novios, fechas, lugares, número de WhatsApp para RSVP, dominio, URL del backend). **Toda la data configurable de la boda vive aquí.**
+- `data/invitados.json`: solo se usa como fallback para desarrollo local cuando `backend.habilitado` es false. Los datos reales viven en la Google Sheet.
+- `docs/apps-script.gs`: código completo del Apps Script que se pega en el editor de Google. NO se ejecuta desde el repo; es referencia.
+- `docs/google-sheets-setup.md`: instrucciones paso a paso para crear la Sheet, configurar el script y desplegar.
 
-### Flujo de carga de datos
+### Esquema de la Google Sheet
 
-`assets/js/data.js` centraliza la carga vía `fetch`. Las páginas que viven en subcarpetas (`/rsvp/`, `/admin/`, `/boda/`) pasan `prefijo = '../'` a `cargarConfig()` y `cargarInvitados()` para resolver las rutas relativas correctamente. Si se mueve una página de nivel, hay que actualizar el prefijo.
+Pestaña `Invitados`: `id, nombre, saludo, cantidadInvitaciones, incluyeCocktail, mensaje, telefono`.
 
-### Flujo de RSVP
+Pestaña `RSVPs` (solo escritura desde Apps Script): `timestamp, id_invitado, nombre_invitado, asistira, asistira_cocktail, acompanante, cantidad_asistentes, detalles_asistentes, mensaje, raw_json`.
 
-1. Invitado abre `/rsvp/?id={guid}`.
-2. `rsvp.js` carga config + datos del invitado, construye dinámicamente un input por cada `cantidadInvitaciones`.
-3. Al hacer submit, se arma un mensaje texto plano con todas las respuestas y el `id` del invitado.
-4. Se redirige a `https://wa.me/{telefonoWhatsapp}?text={mensaje-encoded}`.
-5. El invitado envía el mensaje desde WhatsApp; los novios lo reciben y consolidan manualmente.
+### Capa de datos en frontend
 
-No hay backend escribiendo respuestas en ningún lado por ahora. Si en el futuro se agrega persistencia (Google Apps Script + Sheets es la opción tentativa), sumar el `fetch` ANTES del redirect a `wa.me`.
+`assets/js/data.js` centraliza:
+- `cargarConfig(prefijo)`: cachea `config.json` en memoria.
+- `cargarInvitados(prefijo, {token})`: si `backend.habilitado`, fetch al endpoint; si no, fallback a JSON local.
+- `enviarRSVPBackend(payload, prefijo)`: POST al endpoint con `Content-Type: text/plain` (evita preflight CORS de Apps Script).
+- `obtenerInvitado(id, prefijo)`, `obtenerIdInvitado()`: helpers.
+
+Las páginas en subcarpetas (`/rsvp/`, `/admin/`, `/boda/`) pasan `prefijo = '../'` para resolver rutas relativas a archivos en `data/`.
+
+### Token de admin
+
+Se almacena solo en localStorage del navegador (`arijuan_admin_token`). Nunca en el repo. El valor se configura como `ADMIN_TOKEN` en Script Properties del Apps Script. El endpoint público no requiere token y oculta los teléfonos.
 
 ### Tracking
 
-Hooks listos para Google Analytics 4 vía `gtag` en `invitacion.js` (evento `invitation_opened`) y `rsvp.js` (evento `rsvp_submitted`). Solo se disparan si `gtag` existe globalmente. El snippet de GA4 todavía no está incluido en los HTML; se agrega cuando esté el dominio activo y la cuenta de GA.
-
-### Asignación de GUIDs
-
-Hay dos caminos equivalentes:
-- `scripts/generar-guids.mjs` (Node CLI) para uso desde terminal.
-- `/admin/` en el navegador, que hace lo mismo y permite descargar el JSON resultante.
-
-Formato del GUID: `{slug-del-nombre-truncado-a-20}-{4-chars-aleatorios}`. Suficientemente no-adivinable para casual, no es secreto criptográfico.
+Hooks listos para Google Analytics 4 vía `gtag` en `invitacion.js` (`invitation_opened`) y `rsvp.js` (`rsvp_submitted`). Solo se disparan si `gtag` existe globalmente. El snippet de GA4 se agrega cuando esté el dominio activo.
 
 ## Restricciones del hosting
 
-GitHub Pages es solo lectura desde el cliente. Implicaciones:
+GitHub Pages sirve archivos estáticos. Toda escritura pasa por Apps Script. Implicaciones:
+- El JSON de invitados de fallback (`data/invitados.json`) es público; mantenerlo con datos ficticios.
+- Los datos reales (incluyendo teléfonos) viven solo en la Sheet privada; no se commitean.
+- El admin no tiene autenticación de identidad: el ADMIN_TOKEN es la única barrera para ver teléfonos. La URL `/admin/` no se publica.
 
-- Toda escritura (RSVPs, tracking de aperturas, edición de la lista de invitados) debe ir a un sistema externo o ser manual.
-- No se puede ocultar nada del repo: el JSON de invitados es accesible públicamente. Diseñar bajo este supuesto.
-- El admin no tiene autenticación real; su única protección es no estar linkeado (`noindex` + URL no publicada).
+## Convenciones de mensajes WhatsApp
+
+- Formato del número: solo dígitos, código de país incluido, sin `+` ni espacios. Ejemplo Ecuador: `593987654321`.
+- Mensaje del invitado al RSVP: usa `wa.me/{numero}?text=...` apuntando al número de los novios (`config.rsvp.telefonoWhatsapp`).
+- Mensaje desde el admin para enviar la invitación: usa `wa.me/{telefono-del-invitado}?text=...`. Si el invitado no tiene teléfono, cae a `wa.me/?text=...` (el sender elige destinatario en WhatsApp).

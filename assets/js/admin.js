@@ -1,95 +1,105 @@
+const TOKEN_KEY = 'arijuan_admin_token';
+
 let configActual = null;
 let invitadosActuales = [];
 
 async function inicializar() {
+  document.getElementById('btn-guardar-token').addEventListener('click', guardarToken);
+  document.getElementById('btn-refrescar').addEventListener('click', refrescar);
+
+  const tokenInput = document.getElementById('input-token');
+  tokenInput.value = localStorage.getItem(TOKEN_KEY) || '';
+
   try {
     configActual = await cargarConfig('../');
-    const data = await cargarInvitados('../');
+    document.getElementById('estado-backend').textContent = backendActivo(configActual)
+      ? `Backend: ${configActual.backend.url}`
+      : 'Backend no configurado: usando datos locales (data/invitados.json)';
+  } catch (e) {
+    document.getElementById('error').textContent = 'No se pudo cargar config.json: ' + e.message;
+  }
+
+  await refrescar();
+}
+
+function guardarToken() {
+  const t = document.getElementById('input-token').value.trim();
+  if (t) localStorage.setItem(TOKEN_KEY, t);
+  else localStorage.removeItem(TOKEN_KEY);
+  refrescar();
+}
+
+async function refrescar() {
+  const errorEl = document.getElementById('error');
+  errorEl.hidden = true;
+  try {
+    const token = localStorage.getItem(TOKEN_KEY) || undefined;
+    const data = await cargarInvitados('../', { token });
     invitadosActuales = data.invitados;
     renderTabla();
   } catch (e) {
-    console.error(e);
-    document.getElementById('error').textContent = 'No se pudo cargar la lista actual.';
+    errorEl.textContent = 'No se pudo cargar la lista: ' + e.message;
+    errorEl.hidden = false;
   }
-
-  document.getElementById('input-json').addEventListener('change', cargarArchivo);
-  document.getElementById('btn-asignar-guids').addEventListener('click', asignarGuids);
-  document.getElementById('btn-descargar').addEventListener('click', descargarJson);
-}
-
-function cargarArchivo(ev) {
-  const file = ev.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    try {
-      const json = JSON.parse(e.target.result);
-      invitadosActuales = json.invitados || json;
-      renderTabla();
-    } catch (err) {
-      alert('JSON inválido: ' + err.message);
-    }
-  };
-  reader.readAsText(file);
-}
-
-function generarGuid(nombre) {
-  const slug = nombre.toLowerCase()
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
-    .slice(0, 20);
-  const sufijo = Math.random().toString(36).slice(2, 6);
-  return `${slug}-${sufijo}`;
-}
-
-function asignarGuids() {
-  invitadosActuales = invitadosActuales.map(inv => ({
-    ...inv,
-    id: inv.id || generarGuid(inv.nombre || 'invitado')
-  }));
-  renderTabla();
-}
-
-function descargarJson() {
-  const blob = new Blob(
-    [JSON.stringify({ invitados: invitadosActuales }, null, 2)],
-    { type: 'application/json' }
-  );
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'invitados.json';
-  a.click();
-  URL.revokeObjectURL(url);
 }
 
 function linkInvitacion(id) {
   return `${configActual.sitio.url}/?id=${encodeURIComponent(id)}`;
 }
 
-function mensajeWhatsapp(invitado) {
+function mensajeInvitacion(invitado) {
   const link = linkInvitacion(invitado.id);
-  const txt = `Hola ${invitado.nombre}, te invitamos a la boda de ${configActual.novios.ella} y ${configActual.novios.el}. Tu invitación: ${link}`;
-  return `https://wa.me/?text=${encodeURIComponent(txt)}`;
+  const novios = `${configActual.novios.ellaCorto} y ${configActual.novios.elCorto}`;
+  return `Hola ${invitado.nombre}, te invitamos a celebrar nuestra boda. Aquí tu invitación digital: ${link}`
+    .replace('nuestra boda', `la boda de ${novios}`);
+}
+
+function linkWhatsApp(invitado) {
+  const txt = encodeURIComponent(mensajeInvitacion(invitado));
+  const numero = (invitado.telefono || '').replace(/[^\d]/g, '');
+  return numero
+    ? `https://wa.me/${numero}?text=${txt}`
+    : `https://wa.me/?text=${txt}`;
+}
+
+function copiarAlPortapapeles(texto) {
+  navigator.clipboard.writeText(texto).then(
+    () => alert('Copiado'),
+    err => alert('No se pudo copiar: ' + err)
+  );
 }
 
 function renderTabla() {
   const tbody = document.getElementById('tbody');
   tbody.innerHTML = '';
+  document.getElementById('contador').textContent = `${invitadosActuales.length} invitados`;
+
   invitadosActuales.forEach(inv => {
     const tr = document.createElement('tr');
-    const link = inv.id ? linkInvitacion(inv.id) : '(sin id)';
-    const wa = inv.id ? `<a href="${mensajeWhatsapp(inv)}" target="_blank">enviar</a>` : '';
+    const tieneTel = Boolean(inv.telefono);
+    const link = inv.id ? linkInvitacion(inv.id) : '';
+    const wa = inv.id ? linkWhatsApp(inv) : '';
+
     tr.innerHTML = `
-      <td>${inv.nombre || ''}</td>
-      <td>${inv.id || ''}</td>
-      <td>${inv.cantidadInvitaciones || 1}</td>
-      <td><a href="${link}" target="_blank">link</a></td>
-      <td>${wa}</td>
+      <td>${escapar(inv.nombre)}</td>
+      <td><code>${escapar(inv.id || '')}</code></td>
+      <td style="text-align:center">${inv.cantidadInvitaciones || 1}</td>
+      <td>${escapar(inv.telefono || '(falta)')}</td>
+      <td><a href="${link}" target="_blank">abrir</a> · <button type="button" class="btn-link" data-copiar="${escapar(link)}">copiar</button></td>
+      <td><a href="${wa}" target="_blank">${tieneTel ? 'al teléfono' : 'sin teléfono'}</a></td>
     `;
     tbody.appendChild(tr);
   });
+
+  tbody.querySelectorAll('button[data-copiar]').forEach(btn => {
+    btn.addEventListener('click', () => copiarAlPortapapeles(btn.dataset.copiar));
+  });
+}
+
+function escapar(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
 }
 
 document.addEventListener('DOMContentLoaded', inicializar);

@@ -6,7 +6,8 @@
       "saludo": "Estimada Familia Pérez",
       "cantidadInvitaciones": 2,
       "incluyeCocktail": true,
-      "mensaje": ""
+      "mensaje": "",
+      "telefono": "593999000001"
     },
     {
       "id": "ari-juan-demo2",
@@ -14,7 +15,8 @@
       "saludo": "Querida María",
       "cantidadInvitaciones": 1,
       "incluyeCocktail": true,
-      "mensaje": ""
+      "mensaje": "",
+      "telefono": "593999000002"
     },
     {
       "id": "ari-juan-demo3",
@@ -22,7 +24,8 @@
       "saludo": "Queridos Carlos y Ana",
       "cantidadInvitaciones": 2,
       "incluyeCocktail": false,
-      "mensaje": ""
+      "mensaje": "",
+      "telefono": "593999000003"
     }
   ]
 }

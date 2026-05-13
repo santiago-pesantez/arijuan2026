@@ -70,9 +70,11 @@ function construirInputsAsistentes(cantidad, opcionesMenu) {
   }
 }
 
-function enviarRSVP(ev) {
+async function enviarRSVP(ev) {
   ev.preventDefault();
   const fd = new FormData(ev.target);
+  const btn = ev.target.querySelector('button[type="submit"]');
+  const estadoEl = document.getElementById('estado-envio');
 
   const asistencia = fd.get('asistencia');
   const cocktail = fd.get('cocktail') || 'no aplica';
@@ -88,6 +90,16 @@ function enviarRSVP(ev) {
     });
   }
 
+  const payload = {
+    id_invitado: invitadoActual.id,
+    nombre_invitado: invitadoActual.nombre,
+    asistencia,
+    cocktail,
+    acompanante: traeAcompanante,
+    asistentes,
+    mensaje
+  };
+
   const lineas = [
     `*RSVP - ${configActual.novios.ellaCorto} & ${configActual.novios.elCorto}*`,
     ``,
@@ -99,19 +111,24 @@ function enviarRSVP(ev) {
     ``,
     `*Asistentes:*`
   ];
-
   asistentes.forEach((a, idx) => {
     lineas.push(`${idx + 1}. ${a.nombre} | Menú: ${a.menu}${a.restricciones ? ` | Alergias: ${a.restricciones}` : ''}`);
   });
-
   if (mensaje.trim()) {
     lineas.push('');
     lineas.push(`Mensaje: ${mensaje}`);
   }
-
   const texto = lineas.join('\n');
   const numero = configActual.rsvp.telefonoWhatsapp;
   const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
+  if (estadoEl) { estadoEl.textContent = 'Guardando tu respuesta...'; estadoEl.hidden = false; }
+
+  const resultado = await enviarRSVPBackend(payload, '../');
+  if (!resultado.ok) {
+    console.warn('No se pudo guardar en backend:', resultado.motivo);
+  }
 
   registrarRSVP(invitadoActual.id, asistencia);
 
