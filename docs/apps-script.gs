@@ -18,7 +18,7 @@
  *     en Script Properties y en el localStorage del admin; nunca en el repo público.
  */
 
-const SHEET_ID = 'PEGAR_AQUI_EL_ID_DE_LA_HOJA';
+const SHEET_ID = '1RJjiIvz608SNTp-SgNsVVnzb93fDn4mGGwVaxUuLiIY';
 const INVITADOS_TAB = 'Invitados';
 const RSVPS_TAB = 'RSVPs';
 
