@@ -32,12 +32,13 @@ body {
   min-height: 100vh;
 }
 
-/* Florales: imagen full-width pegada a la izquierda, contenido en la parte superior */
+/* Florales: imagen en tamaño natural (no se estira), top anclado a la izquierda y bottom a la derecha */
 
 .marco-superior,
 .marco-inferior {
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 .marco-inferior {
@@ -48,15 +49,24 @@ body {
 .marco-inferior .floral {
   display: block;
   width: 100%;
+  max-width: 1500px;
   height: auto;
   user-select: none;
   pointer-events: none;
 }
 
+.marco-superior .floral {
+  margin-right: auto;
+}
+
+.marco-inferior .floral {
+  margin-left: auto;
+}
+
 .marco-superior .contenido {
   position: absolute;
   left: 50%;
-  top: clamp(1rem, 4vw, 3.5rem);
+  top: clamp(0.25rem, 1.2vw, 1.25rem);
   transform: translateX(-50%);
   width: min(100%, 900px);
   text-align: center;
@@ -66,7 +76,7 @@ body {
 .marco-inferior .contenido {
   position: absolute;
   left: 50%;
-  bottom: clamp(1rem, 4vw, 3.5rem);
+  bottom: clamp(0.25rem, 1.2vw, 1.25rem);
   transform: translateX(-50%);
   width: min(100%, 900px);
   text-align: center;
