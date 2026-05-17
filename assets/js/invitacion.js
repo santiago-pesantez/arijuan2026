@@ -2,17 +2,20 @@ async function renderInvitacion() {
   const errorEl = document.getElementById('error');
   const contenidoEl = document.getElementById('contenido');
 
+  const id = obtenerIdInvitado();
+  if (!id) {
+    window.location.replace('/boda/');
+    return;
+  }
+
   try {
-    const id = obtenerIdInvitado();
     const [config, invitado] = await Promise.all([
       cargarConfig(),
       obtenerInvitado(id)
     ]);
 
     if (!invitado) {
-      errorEl.textContent = id
-        ? 'No encontramos tu invitación. Verifica el enlace recibido.'
-        : 'Falta el identificador del invitado en el enlace.';
+      errorEl.textContent = 'No encontramos tu invitación. Verifica el enlace recibido por WhatsApp.';
       errorEl.hidden = false;
       return;
     }

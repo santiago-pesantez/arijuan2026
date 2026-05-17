@@ -32,14 +32,12 @@ body {
   min-height: 100vh;
 }
 
-/* Florales como wrappers: imagen completa centrada, contenido posicionado dentro */
+/* Florales: imagen full-width pegada a la izquierda, contenido en la parte superior */
 
 .marco-superior,
 .marco-inferior {
   position: relative;
   width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
 }
 
 .marco-inferior {
@@ -58,9 +56,9 @@ body {
 .marco-superior .contenido {
   position: absolute;
   left: 50%;
-  bottom: 8%;
+  top: clamp(1rem, 4vw, 3.5rem);
   transform: translateX(-50%);
-  width: min(100%, 700px);
+  width: min(100%, 900px);
   text-align: center;
   padding: 0 1rem;
 }
@@ -68,9 +66,9 @@ body {
 .marco-inferior .contenido {
   position: absolute;
   left: 50%;
-  top: 12%;
+  bottom: clamp(1rem, 4vw, 3.5rem);
   transform: translateX(-50%);
-  width: min(100%, 700px);
+  width: min(100%, 900px);
   text-align: center;
   padding: 0 1rem;
 }
