@@ -35,9 +35,16 @@ async function cargarInvitados({ token } = {}) {
   return cargarJSON('/data/invitados.json');
 }
 
+const ID_INVITADO_KEY = 'arijuan_invitado_id';
+
 function obtenerIdInvitado() {
   const params = new URLSearchParams(window.location.search);
-  return params.get('id');
+  const id = params.get('id');
+  if (id) {
+    try { localStorage.setItem(ID_INVITADO_KEY, id); } catch (_) {}
+    return id;
+  }
+  try { return localStorage.getItem(ID_INVITADO_KEY); } catch (_) { return null; }
 }
 
 async function obtenerInvitado(id) {

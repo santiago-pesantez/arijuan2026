@@ -22,46 +22,57 @@
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
-  <div class="deco-floral top"></div>
-
   <header class="site-header">
-    <h2 class="site-title"><a href="/boda/">ARIANA &amp; JUAN</a></h2>
+    <div class="marco-superior">
+      <img src="/assets/img/decoracion/floral-superior.png" alt="" class="floral">
+      <div class="contenido">
+        <h2 class="site-title"><a href="/boda/">ARIANA &amp; JUAN</a></h2>
+      </div>
+    </div>
   </header>
 
   <main>
     <h1>Confirmar asistencia</h1>
-    <hr class="separador-oro">
+    <hr class="separador-floral">
 
-    <p class="subquote">Hola <span id="saludo"></span>, por favor completa los datos a continuación antes del <strong id="fecha-limite"></strong>. Al enviar, se abrirá WhatsApp con tu confirmación lista para mandar a los novios.</p>
+    <p class="subquote" id="intro">Hola <span id="saludo"></span>, por favor completa los datos a continuación antes del <strong id="fecha-limite"></strong>. Al enviar, se abrirá WhatsApp con tu confirmación lista para mandar a los novios.</p>
 
     <p id="error" class="error" hidden></p>
 
     <form id="form-rsvp" hidden>
-      <fieldset>
-        <legend>¿Asistirás a la ceremonia?</legend>
-        <label><input type="radio" name="asistencia" value="si" required> Sí, ahí estaré</label>
-        <label><input type="radio" name="asistencia" value="no"> No podré asistir</label>
-      </fieldset>
+      <div class="campo">
+        <h3 class="campo-titulo">¿Asistirás a la ceremonia?</h3>
+        <div class="opciones-radio">
+          <label><input type="radio" name="asistencia" value="si" required> Sí, ahí estaré</label>
+          <label><input type="radio" name="asistencia" value="no"> No podré asistir</label>
+        </div>
+      </div>
 
-      <fieldset id="seccion-cocktail">
-        <legend>¿Asistirás al cocktail posterior?</legend>
-        <label><input type="radio" name="cocktail" value="si"> Sí</label>
-        <label><input type="radio" name="cocktail" value="no"> No</label>
-      </fieldset>
+      <div class="campo" id="seccion-cocktail">
+        <h3 class="campo-titulo">¿Asistirás al cocktail posterior?</h3>
+        <div class="opciones-radio">
+          <label><input type="radio" name="cocktail" value="si"> Sí</label>
+          <label><input type="radio" name="cocktail" value="no"> No</label>
+        </div>
+      </div>
 
-      <fieldset>
-        <legend>¿Vendrás con acompañante (+1)?</legend>
-        <label><input type="radio" name="acompanante" value="si"> Sí</label>
-        <label><input type="radio" name="acompanante" value="no"> No</label>
-      </fieldset>
+      <div class="campo" id="seccion-cantidad" hidden>
+        <h3 class="campo-titulo">¿Cuántos asistirán?</h3>
+        <p class="subquote" style="text-align:left; margin: 0 0 .75rem"><span id="cupos-info"></span></p>
+        <label class="visually-hidden" for="select-cantidad">Cantidad de asistentes</label>
+        <select id="select-cantidad" name="cantidad_asistentes"></select>
+      </div>
 
-      <h3>Datos de los asistentes</h3>
-      <p class="subquote">Por favor incluye el nombre completo y la preferencia de menú de cada persona que asistirá.</p>
-      <div id="asistentes"></div>
+      <div class="campo">
+        <h3 class="campo-titulo">Datos de los asistentes</h3>
+        <p class="subquote" style="text-align:left; margin: 0 0 .75rem">Por favor incluye el nombre completo y la preferencia de menú de cada persona que asistirá.</p>
+        <div id="asistentes"></div>
+      </div>
 
-      <label>Mensaje para los novios (opcional)
+      <div class="campo">
+        <h3 class="campo-titulo">Mensaje para los novios (opcional)</h3>
         <textarea name="mensaje" rows="3"></textarea>
-      </label>
+      </div>
 
       <p id="estado-envio" class="estado-envio" hidden></p>
 
@@ -71,11 +82,14 @@
     </form>
   </main>
 
-  <div class="deco-floral bottom"></div>
-
   <footer class="site-footer">
-    <p class="marca">ARI &amp; JUAN 2026</p>
-    <p>Cuenca, Ecuador · 25.07.2026</p>
+    <div class="marco-inferior">
+      <img src="/assets/img/decoracion/floral-inferior.png" alt="" class="floral">
+      <div class="contenido">
+        <p class="marca">ARI &amp; JUAN 2026</p>
+        <p>Cuenca, Ecuador · 25.07.2026</p>
+      </div>
+    </div>
   </footer>
 
   <script src="/assets/js/data.js"></script>

@@ -6,6 +6,7 @@ async function inicializar() {
   const formEl = document.getElementById('form-rsvp');
   const saludoEl = document.getElementById('saludo');
   const limiteEl = document.getElementById('fecha-limite');
+  const introEl = document.getElementById('intro');
 
   try {
     const id = obtenerIdInvitado();
@@ -15,9 +16,10 @@ async function inicializar() {
     ]);
 
     if (!invitado) {
-      errorEl.textContent = id
-        ? 'No encontramos tu invitación. Verifica el enlace recibido.'
-        : 'Falta el identificador del invitado en el enlace.';
+      if (introEl) introEl.hidden = true;
+      errorEl.innerHTML = id
+        ? 'No encontramos tu invitación. Verifica el enlace recibido por WhatsApp.'
+        : 'Para confirmar tu asistencia necesitamos identificarte. Por favor abre el enlace personalizado que recibiste por WhatsApp.';
       errorEl.hidden = false;
       return;
     }
@@ -28,10 +30,12 @@ async function inicializar() {
     saludoEl.textContent = invitado.saludo || invitado.nombre;
     if (limiteEl) limiteEl.textContent = config.rsvp.fechaLimite;
 
-    const seccionCocktail = document.getElementById('seccion-cocktail');
-    if (!invitado.incluyeCocktail) seccionCocktail.hidden = true;
+    if (!invitado.incluyeCocktail) {
+      document.getElementById('seccion-cocktail').hidden = true;
+    }
 
-    construirInputsAsistentes(invitado.cantidadInvitaciones, config.cocktail.menu);
+    construirSeccionCantidad(invitado.cantidadInvitaciones);
+    construirInputsAsistentes(invitado.cantidadInvitaciones, config.cocktail.menu, invitado.nombre);
 
     formEl.hidden = false;
     formEl.addEventListener('submit', enviarRSVP);
@@ -42,7 +46,29 @@ async function inicializar() {
   }
 }
 
-function construirInputsAsistentes(cantidad, opcionesMenu) {
+function construirSeccionCantidad(maxCupos) {
+  const seccion = document.getElementById('seccion-cantidad');
+  const select = document.getElementById('select-cantidad');
+  const info = document.getElementById('cupos-info');
+
+  info.textContent = maxCupos === 1
+    ? 'Tu invitación es individual.'
+    : `Tu invitación incluye hasta ${maxCupos} personas. Indica cuántas asistirán.`;
+
+  for (let i = 1; i <= maxCupos; i++) {
+    const opt = document.createElement('option');
+    opt.value = String(i);
+    opt.textContent = i === 1 ? '1 persona' : `${i} personas`;
+    select.appendChild(opt);
+  }
+  select.value = String(maxCupos);
+
+  if (maxCupos > 1) seccion.hidden = false;
+
+  select.addEventListener('change', () => actualizarVisibilidadAsistentes(Number(select.value)));
+}
+
+function construirInputsAsistentes(cantidad, opcionesMenu, primerNombre) {
   const cont = document.getElementById('asistentes');
   const opcionesHtml = opcionesMenu
     .map(o => `<option value="${o}">${o}</option>`)
@@ -51,10 +77,12 @@ function construirInputsAsistentes(cantidad, opcionesMenu) {
   for (let i = 1; i <= cantidad; i++) {
     const wrap = document.createElement('div');
     wrap.className = 'asistente';
+    wrap.dataset.indice = String(i);
+    const valorNombre = i === 1 && primerNombre ? primerNombre : '';
     wrap.innerHTML = `
       <h4>Asistente ${i}</h4>
       <label>Nombre completo
-        <input type="text" name="nombre_${i}" required>
+        <input type="text" name="nombre_${i}" value="${escAttr(valorNombre)}" required>
       </label>
       <label>Preferencia de menú
         <select name="menu_${i}" required>
@@ -70,6 +98,24 @@ function construirInputsAsistentes(cantidad, opcionesMenu) {
   }
 }
 
+function actualizarVisibilidadAsistentes(cantidad) {
+  document.querySelectorAll('.asistente').forEach(el => {
+    const idx = Number(el.dataset.indice);
+    const visible = idx <= cantidad;
+    el.hidden = !visible;
+    el.querySelectorAll('input, select, textarea').forEach(c => {
+      if (c.dataset.required === undefined && c.required) c.dataset.required = '1';
+      c.required = visible && c.dataset.required === '1';
+    });
+  });
+}
+
+function escAttr(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
 async function enviarRSVP(ev) {
   ev.preventDefault();
   const fd = new FormData(ev.target);
@@ -78,11 +124,11 @@ async function enviarRSVP(ev) {
 
   const asistencia = fd.get('asistencia');
   const cocktail = fd.get('cocktail') || 'no aplica';
-  const traeAcompanante = fd.get('acompanante') || 'no';
   const mensaje = fd.get('mensaje') || '';
+  const cantidad = Number(fd.get('cantidad_asistentes') || invitadoActual.cantidadInvitaciones);
 
   const asistentes = [];
-  for (let i = 1; i <= invitadoActual.cantidadInvitaciones; i++) {
+  for (let i = 1; i <= cantidad; i++) {
     asistentes.push({
       nombre: fd.get(`nombre_${i}`) || '',
       menu: fd.get(`menu_${i}`) || '',
@@ -95,7 +141,7 @@ async function enviarRSVP(ev) {
     nombre_invitado: invitadoActual.nombre,
     asistencia,
     cocktail,
-    acompanante: traeAcompanante,
+    acompanante: asistentes.length > 1 ? 'si' : 'no',
     asistentes,
     mensaje
   };
@@ -107,7 +153,7 @@ async function enviarRSVP(ev) {
     `ID: ${invitadoActual.id}`,
     `Asistirá a la ceremonia: ${asistencia}`,
     `Asistirá al cocktail: ${cocktail}`,
-    `Trae acompañante (+1): ${traeAcompanante}`,
+    `Cantidad de asistentes: ${asistentes.length}`,
     ``,
     `*Asistentes:*`
   ];
