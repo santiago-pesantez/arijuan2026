@@ -4,12 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Confirmar asistencia | Ariana & Juan</title>
-  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#b7954b">
+
+  <meta property="og:title" content="Confirmar asistencia | Ariana & Juan">
+  <meta property="og:description" content="Confirma tu asistencia a nuestra boda.">
+  <meta property="og:image" content="https://arijuan2026.com/social/og-image.jpg">
+  <meta property="og:url" content="https://arijuan2026.com/rsvp/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
+  <div class="deco-floral top"></div>
+
+  <header class="site-header">
+    <h2 class="site-title"><a href="/boda/">ARIANA &amp; JUAN</a></h2>
+  </header>
+
   <main>
     <h1>Confirmar asistencia</h1>
-    <p>Hola <span id="saludo"></span>, por favor completa los datos a continuación antes del <strong id="fecha-limite"></strong>. Al enviar, se abrirá WhatsApp con tu confirmación lista para mandar a los novios.</p>
+    <hr class="separador-oro">
+
+    <p class="subquote">Hola <span id="saludo"></span>, por favor completa los datos a continuación antes del <strong id="fecha-limite"></strong>. Al enviar, se abrirá WhatsApp con tu confirmación lista para mandar a los novios.</p>
 
     <p id="error" class="error" hidden></p>
 
@@ -33,14 +56,14 @@
       </fieldset>
 
       <h3>Datos de los asistentes</h3>
-      <p>Por favor incluye el nombre completo y la preferencia de menú de cada persona que asistirá.</p>
+      <p class="subquote">Por favor incluye el nombre completo y la preferencia de menú de cada persona que asistirá.</p>
       <div id="asistentes"></div>
 
       <label>Mensaje para los novios (opcional)
         <textarea name="mensaje" rows="3"></textarea>
       </label>
 
-      <p id="estado-envio" hidden style="text-align:center; color:#6c6c66;"></p>
+      <p id="estado-envio" class="estado-envio" hidden></p>
 
       <div class="botones">
         <button type="submit" class="btn">Enviar por WhatsApp</button>
@@ -48,7 +71,14 @@
     </form>
   </main>
 
-  <script src="../assets/js/data.js"></script>
-  <script src="../assets/js/rsvp.js"></script>
+  <div class="deco-floral bottom"></div>
+
+  <footer class="site-footer">
+    <p class="marca">ARI &amp; JUAN 2026</p>
+    <p>Cuenca, Ecuador · 25.07.2026</p>
+  </footer>
+
+  <script src="/assets/js/data.js"></script>
+  <script src="/assets/js/rsvp.js"></script>
 </body>
 </html>

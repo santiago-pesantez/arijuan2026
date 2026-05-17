@@ -10,8 +10,8 @@ async function inicializar() {
   try {
     const id = obtenerIdInvitado();
     const [config, invitado] = await Promise.all([
-      cargarConfig('../'),
-      obtenerInvitado(id, '../')
+      cargarConfig(),
+      obtenerInvitado(id)
     ]);
 
     if (!invitado) {
@@ -125,7 +125,7 @@ async function enviarRSVP(ev) {
   if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
   if (estadoEl) { estadoEl.textContent = 'Guardando tu respuesta...'; estadoEl.hidden = false; }
 
-  const resultado = await enviarRSVPBackend(payload, '../');
+  const resultado = await enviarRSVPBackend(payload);
   if (!resultado.ok) {
     console.warn('No se pudo guardar en backend:', resultado.motivo);
   }

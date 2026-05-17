@@ -11,7 +11,7 @@ async function inicializar() {
   tokenInput.value = localStorage.getItem(TOKEN_KEY) || '';
 
   try {
-    configActual = await cargarConfig('../');
+    configActual = await cargarConfig();
     document.getElementById('estado-backend').textContent = backendActivo(configActual)
       ? `Backend: ${configActual.backend.url}`
       : 'Backend no configurado: usando datos locales (data/invitados.json)';
@@ -34,7 +34,7 @@ async function refrescar() {
   errorEl.hidden = true;
   try {
     const token = localStorage.getItem(TOKEN_KEY) || undefined;
-    const data = await cargarInvitados('../', { token });
+    const data = await cargarInvitados({ token });
     invitadosActuales = data.invitados;
     renderTabla();
   } catch (e) {

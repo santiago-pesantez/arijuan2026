@@ -6,8 +6,8 @@ async function cargarJSON(ruta) {
   return resp.json();
 }
 
-async function cargarConfig(prefijo = '') {
-  if (!_configCache) _configCache = await cargarJSON(`${prefijo}data/config.json`);
+async function cargarConfig() {
+  if (!_configCache) _configCache = await cargarJSON('/data/config.json');
   return _configCache;
 }
 
@@ -15,8 +15,8 @@ function backendActivo(config) {
   return config && config.backend && config.backend.habilitado && config.backend.url;
 }
 
-async function cargarInvitados(prefijo = '', { token } = {}) {
-  const config = await cargarConfig(prefijo);
+async function cargarInvitados({ token } = {}) {
+  const config = await cargarConfig();
   if (backendActivo(config)) {
     const url = new URL(config.backend.url);
     url.searchParams.set('action', 'invitados');
@@ -32,7 +32,7 @@ async function cargarInvitados(prefijo = '', { token } = {}) {
       console.warn('Falla al consultar backend, usando JSON local:', e);
     }
   }
-  return cargarJSON(`${prefijo}data/invitados.json`);
+  return cargarJSON('/data/invitados.json');
 }
 
 function obtenerIdInvitado() {
@@ -40,14 +40,14 @@ function obtenerIdInvitado() {
   return params.get('id');
 }
 
-async function obtenerInvitado(id, prefijo = '') {
+async function obtenerInvitado(id) {
   if (!id) return null;
-  const data = await cargarInvitados(prefijo);
+  const data = await cargarInvitados();
   return data.invitados.find(i => i.id === id) || null;
 }
 
-async function enviarRSVPBackend(payload, prefijo = '') {
-  const config = await cargarConfig(prefijo);
+async function enviarRSVPBackend(payload) {
+  const config = await cargarConfig();
   if (!backendActivo(config)) return { ok: false, motivo: 'backend no configurado' };
   try {
     const resp = await fetch(config.backend.url, {

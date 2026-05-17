@@ -18,7 +18,6 @@ async function renderInvitacion() {
     }
 
     document.getElementById('saludo').textContent = invitado.saludo || invitado.nombre;
-    document.getElementById('novios').textContent = `${config.novios.ellaCorto || config.novios.ella} & ${config.novios.elCorto || config.novios.el}`;
     document.getElementById('fecha').textContent = config.ceremonia.fecha;
     document.getElementById('hora').textContent = config.ceremonia.hora;
     document.getElementById('lugar').textContent = `${config.ceremonia.lugar}, ${config.ceremonia.direccion}`;
@@ -33,10 +32,10 @@ async function renderInvitacion() {
     }
 
     const rsvpLink = document.getElementById('rsvp-link');
-    rsvpLink.href = `rsvp/?id=${encodeURIComponent(invitado.id)}`;
+    rsvpLink.href = `/rsvp/?id=${encodeURIComponent(invitado.id)}`;
 
     const sitioLink = document.getElementById('sitio-link');
-    sitioLink.href = `boda/?id=${encodeURIComponent(invitado.id)}`;
+    sitioLink.href = `/boda/`;
 
     contenidoEl.hidden = false;
 

@@ -3,51 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuestra Boda | Ariana & Juan</title>
-  <link rel="stylesheet" href="../assets/css/styles.css">
+  <title>Ariana & Juan | 25 de julio de 2026</title>
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#b7954b">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ariana & Juan | Nuestra Boda">
+  <meta property="og:description" content="25 de julio de 2026. La Muralla, Baños de Cuenca, Ecuador.">
+  <meta property="og:image" content="https://arijuan2026.com/social/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://arijuan2026.com/boda/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ariana & Juan | Nuestra Boda">
+  <meta name="twitter:description" content="25 de julio de 2026. Cuenca, Ecuador.">
+  <meta name="twitter:image" content="https://arijuan2026.com/social/twitter-card.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
-  <main>
-    <header style="text-align:center">
-      <h1>Ariana &amp; Juan</h1>
-      <p>25 de julio de 2026 · Cuenca, Ecuador</p>
-      <p class="hashtag" style="color:#87a96b; letter-spacing:0.15em">#AriAndJuan</p>
-    </header>
+  <div class="deco-floral top"></div>
 
-    <section>
-      <h2>Ceremonia</h2>
-      <p><strong>Fecha:</strong> Sábado, 25 de julio de 2026</p>
-      <p><strong>Hora:</strong> 11:00 AM a 12:00 PM</p>
-      <p><strong>Lugar:</strong> La Muralla, Baños de Cuenca</p>
-    </section>
+  <header class="site-header">
+    <h2 class="site-title"><a href="/boda/">ARIANA &amp; JUAN</a></h2>
+    <nav class="site-nav">
+      <a href="/boda/" class="active">Inicio</a>
+      <a href="/boda/cronograma/">Cronograma</a>
+      <a href="/boda/regalos/">Regalos</a>
+      <a href="/boda/galeria/">Galería</a>
+      <a href="/boda/preguntas/">Preguntas Frecuentes</a>
+      <a href="/rsvp/">RSVP</a>
+    </nav>
+  </header>
 
-    <section>
-      <h2>Cóctel</h2>
-      <p><strong>Hora:</strong> 12:00 PM en adelante</p>
-      <p><strong>Lugar:</strong> La Muralla (mismo sitio)</p>
-      <p><strong>Menú:</strong> Clásico o Vegetariano</p>
-    </section>
+  <main class="home">
+    <img src="/icons/logo-512x512.png" alt="Monograma A J" class="hero-mono">
 
-    <section>
-      <h2>Código de vestimenta</h2>
-      <p>Elegante-casual para verano andino. Ceremonia al aire libre en la mañana. Vestidos ligeros, trajes de lino o colores claros. Tacones bajos o cuñas por el terreno. Saco y pantalón de tela, corbata opcional.</p>
-      <p><em>Cuenca en julio: fresco en la mañana (12-15°C), soleado al mediodía (20-22°C).</em></p>
-    </section>
+    <h1 class="hero-nombres">
+      ARIANA ROJAS
+      <span class="hero-amp">&amp;</span>
+      JUAN PATIÑO
+    </h1>
 
-    <section>
-      <h2>Regalos</h2>
-      <p>Cofre para sobres el día de la boda, o transferencia bancaria. Datos bancarios por confirmar. No tenemos lista de regalos.</p>
-    </section>
+    <p class="hero-fecha">25 DE JULIO DE 2026</p>
+    <p class="hero-lugar">Cuenca, Ecuador</p>
 
-    <section>
-      <h2>Galería</h2>
-      <p>Las fotos se agregarán en la siguiente iteración.</p>
-    </section>
+    <div class="countdown" id="countdown" aria-label="Cuenta regresiva">
+      <div class="countdown-item"><span class="countdown-num" id="cd-d">--</span><span class="countdown-label">Días</span></div>
+      <div class="countdown-item"><span class="countdown-num" id="cd-h">--</span><span class="countdown-label">Horas</span></div>
+      <div class="countdown-item"><span class="countdown-num" id="cd-m">--</span><span class="countdown-label">Minutos</span></div>
+      <div class="countdown-item"><span class="countdown-num" id="cd-s">--</span><span class="countdown-label">Segundos</span></div>
+    </div>
 
-    <section>
-      <h2>Confirmar asistencia</h2>
-      <p>Si recibiste tu invitación digital, usa el enlace personalizado que te enviamos por WhatsApp para confirmar tu asistencia. Fecha límite: <strong>30 de junio de 2026</strong>.</p>
-    </section>
+    <div class="botones">
+      <a href="/rsvp/" class="btn">Confirmar asistencia</a>
+    </div>
+
+    <hr class="separador-oro">
+
+    <p class="quote">"Porque juntos somos mejores, hemos decidido caminar de la mano para siempre"</p>
+    <p class="subquote">Nada nos haría más felices que celebrar este día tan especial rodeados de quienes más queremos.</p>
+
+    <img src="/assets/img/galeria/pareja-home.jpg" alt="Ariana y Juan" class="foto-pareja" loading="lazy">
   </main>
+
+  <div class="deco-floral bottom"></div>
+
+  <footer class="site-footer">
+    <p class="marca">ARI &amp; JUAN 2026</p>
+    <p>Cuenca, Ecuador · 25.07.2026</p>
+  </footer>
+
+  <script>
+    (function () {
+      const target = new Date('2026-07-25T11:00:00-05:00').getTime();
+      const set = (id, v) => document.getElementById(id).textContent = String(v).padStart(2, '0');
+      function tick() {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          set('cd-d', 0); set('cd-h', 0); set('cd-m', 0); set('cd-s', 0);
+          return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        set('cd-d', d); set('cd-h', h); set('cd-m', m); set('cd-s', s);
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
 </body>
 </html>

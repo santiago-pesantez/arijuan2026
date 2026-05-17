@@ -5,19 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
   <title>Admin | Ariana & Juan</title>
-  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#b7954b">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
   <style>
-    .panel { background: #fff; border: 1px solid #e8dccb; padding: 1rem; margin: 1rem 0; }
+    .panel { background: var(--color-fondo-suave); border: 1px solid var(--color-borde); padding: 1rem; margin: 1rem 0; text-align: left; }
     .row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
-    .row input[type=text], .row input[type=password] { flex: 1; min-width: 240px; }
-    code { background: #f0e9d6; padding: 0 .25rem; }
-    .btn-link { background: none; border: none; color: #b85c3c; cursor: pointer; padding: 0; text-decoration: underline; font-size: inherit; }
-    .estado { font-size: .85rem; color: #6c6c66; }
+    .row input[type=password], .row input[type=text] { flex: 1; min-width: 240px; }
+    code { background: var(--color-fondo-suave); padding: 0 .25rem; font-size: .85em; }
+    .btn-link { background: none; border: none; color: var(--color-oro); cursor: pointer; padding: 0; text-decoration: underline; font-size: inherit; font-family: inherit; }
+    .estado { font-size: .85rem; color: var(--color-texto-suave); }
+    main { text-align: left; }
   </style>
 </head>
 <body>
+  <div class="deco-floral top"></div>
+
+  <header class="site-header">
+    <h2 class="site-title"><a href="/boda/">ARIANA &amp; JUAN</a></h2>
+  </header>
+
   <main>
-    <h1>Administración</h1>
+    <h1 style="text-align:center">Administración</h1>
+    <hr class="separador-oro">
 
     <div class="panel">
       <p class="estado" id="estado-backend">Cargando configuración...</p>
@@ -25,11 +41,11 @@
     </div>
 
     <div class="panel">
-      <h3>Token de admin</h3>
+      <h3 style="text-align:left; margin-top: 0">Token de admin</h3>
       <p>Necesario para ver los teléfonos. Se guarda en este navegador (localStorage).</p>
       <div class="row">
         <input type="password" id="input-token" placeholder="Pega aquí tu ADMIN_TOKEN">
-        <button type="button" class="btn" id="btn-guardar-token">Guardar y refrescar</button>
+        <button type="button" class="btn" id="btn-guardar-token">Guardar</button>
         <button type="button" class="btn btn-secundario" id="btn-refrescar">Refrescar</button>
       </div>
     </div>
@@ -37,7 +53,7 @@
     <p id="error" class="error" hidden></p>
 
     <div class="panel">
-      <h3>Invitados <span class="estado" id="contador"></span></h3>
+      <h3 style="text-align:left; margin-top: 0">Invitados <span class="estado" id="contador"></span></h3>
       <table>
         <thead>
           <tr>
@@ -54,7 +70,13 @@
     </div>
   </main>
 
-  <script src="../assets/js/data.js"></script>
-  <script src="../assets/js/admin.js"></script>
+  <div class="deco-floral bottom"></div>
+
+  <footer class="site-footer">
+    <p class="marca">ARI &amp; JUAN 2026</p>
+  </footer>
+
+  <script src="/assets/js/data.js"></script>
+  <script src="/assets/js/admin.js"></script>
 </body>
 </html>
