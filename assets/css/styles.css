@@ -30,20 +30,24 @@ body {
   font-size: 16px;
   position: relative;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Florales: imagen en tamaño natural (no se estira), top anclado a la izquierda y bottom a la derecha */
+/* Florales: overlays absolutos que no consumen flow. Top a la izquierda, bottom a la derecha.
+   Imagen en tamaño natural (no se estira) gracias a max-width. */
 
 .marco-superior,
 .marco-inferior {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 0;
   overflow: hidden;
 }
 
-.marco-inferior {
-  margin-top: 2rem;
-}
+.marco-superior { top: 0; }
+.marco-inferior { bottom: 0; }
 
 .marco-superior .floral,
 .marco-inferior .floral {
@@ -52,42 +56,23 @@ body {
   max-width: 1500px;
   height: auto;
   user-select: none;
-  pointer-events: none;
 }
 
-.marco-superior .floral {
-  margin-right: auto;
-}
+.marco-superior .floral { margin: 0 auto 0 0; }
+.marco-inferior .floral { margin: 0 0 0 auto; }
 
-.marco-inferior .floral {
-  margin-left: auto;
-}
+/* Header, main y footer en flujo normal, por encima del floral */
 
-.marco-superior .contenido {
-  position: absolute;
-  left: 50%;
-  top: clamp(0.25rem, 1.2vw, 1.25rem);
-  transform: translateX(-50%);
-  width: min(100%, 900px);
-  text-align: center;
-  padding: 0 1rem;
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
 }
-
-.marco-inferior .contenido {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(0.25rem, 1.2vw, 1.25rem);
-  transform: translateX(-50%);
-  width: min(100%, 900px);
-  text-align: center;
-  padding: 0 1rem;
-}
-
-/* Header del sitio */
 
 .site-header {
   text-align: center;
-  padding: 0;
+  padding: clamp(100px, 13vw, 150px) 1rem 1rem;
 }
 
 .site-title {
@@ -121,6 +106,38 @@ body {
 
 .site-nav a:hover { color: var(--color-oro); }
 .site-nav a.active { border-bottom-color: var(--color-oro); color: var(--color-oro); }
+
+/* Burger menu para mobile */
+
+.burger {
+  display: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: 0.75rem auto 0;
+  width: 44px;
+  height: 44px;
+}
+
+.burger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--color-acento);
+  margin: 5px auto;
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+.burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
 
 /* Main */
 
@@ -540,10 +557,28 @@ table th {
 
 /* Responsive */
 
+@media (max-width: 768px) {
+  .burger { display: block; }
+
+  .site-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem 1rem 0;
+    border-top: 1px solid var(--color-borde);
+  }
+
+  .site-nav.abierto {
+    display: flex;
+  }
+
+  .site-nav a { font-size: 0.95rem; }
+}
+
 @media (max-width: 600px) {
-  .site-nav { gap: 1rem; font-size: 0.85rem; }
   main { padding: 1rem 1rem 1.5rem; }
-  .deco-floral.top, .deco-floral.bottom { height: clamp(90px, 24vw, 150px); }
   .countdown { gap: 0.75rem; }
   .countdown-item { min-width: 50px; }
 }
