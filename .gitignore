@@ -13,6 +13,9 @@ Thumbs.db
 # Brand kit original: ya copiamos los archivos al root (/favicon.ico, /icons, /social, /site.webmanifest)
 ari-juan-web-brand-assets/
 
+# Fotos originales sin optimizar (incluye HEIC y MOV pesados). Las optimizadas viven en assets/img/galeria/
+fotos/
+
 # datos sensibles que no se suben al repo público
 data/invitados.private.json
 data/rsvps.json

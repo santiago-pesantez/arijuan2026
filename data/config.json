@@ -17,13 +17,13 @@
     "hora": "11:00 AM a 12:00 PM",
     "lugar": "La Muralla",
     "direccion": "Baños de Cuenca",
-    "mapsUrl": ""
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=-2.92317970,-79.06591490"
   },
   "cocktail": {
     "hora": "12:00 PM en adelante",
     "lugar": "La Muralla (mismo sitio)",
     "direccion": "Baños de Cuenca",
-    "mapsUrl": "",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=-2.92317970,-79.06591490",
     "menu": ["Clásico", "Vegetariano"]
   },
   "rsvp": {
