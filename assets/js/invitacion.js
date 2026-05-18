@@ -40,7 +40,7 @@ async function renderInvitacion() {
     const sitioLink = document.getElementById('sitio-link');
     sitioLink.href = `/boda/`;
 
-    contenidoEl.hidden = false;
+    contenidoEl.classList.add('cargada');
 
     registrarApertura(invitado.id);
   } catch (e) {
