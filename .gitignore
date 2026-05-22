@@ -16,6 +16,10 @@ ari-juan-web-brand-assets/
 # Fotos originales sin optimizar (incluye HEIC y MOV pesados). Las optimizadas viven en assets/img/galeria/
 fotos/
 
+# Screenshots de debug en root
+/img.png
+/screenshot*.png
+
 # datos sensibles que no se suben al repo público
 data/invitados.private.json
 data/rsvps.json
