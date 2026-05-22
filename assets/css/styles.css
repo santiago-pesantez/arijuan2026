@@ -115,36 +115,93 @@ main,
 .site-nav a:hover { color: var(--color-oro); }
 .site-nav a.active { border-bottom-color: var(--color-oro); color: var(--color-oro); }
 
-/* Burger menu para mobile */
+/* Burger fijo en esquina superior derecha, siempre visible.
+   Es un acceso alternativo: el nav horizontal sigue siendo el principal. */
 
 .burger {
-  display: none;
-  background: transparent;
-  border: 0;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  background: rgba(255, 250, 243, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--color-borde);
+  border-radius: 50%;
   cursor: pointer;
-  padding: 0.5rem;
-  margin: 0.75rem auto 0;
-  width: 44px;
-  height: 44px;
+  padding: 0;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background 0.2s;
 }
+
+.burger:hover { background: var(--color-fondo); }
 
 .burger span {
   display: block;
-  width: 26px;
+  width: 22px;
   height: 2px;
   background: var(--color-acento);
-  margin: 5px auto;
   transition: transform 0.25s, opacity 0.25s;
 }
 
+.burger[aria-expanded="true"] {
+  background: var(--color-fondo);
+}
+
 .burger[aria-expanded="true"] span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(6px) rotate(45deg);
 }
 .burger[aria-expanded="true"] span:nth-child(2) {
   opacity: 0;
 }
 .burger[aria-expanded="true"] span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Overlay drawer que abre desde la derecha al hacer click en el burger */
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(320px, 100%);
+  height: 100vh;
+  background: var(--color-fondo);
+  z-index: 99;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  padding: 5rem 2rem 2rem;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.05);
+  border-left: 1px solid var(--color-borde);
+  overflow-y: auto;
+}
+
+.menu-overlay.abierto {
+  transform: translateX(0);
+}
+
+.menu-overlay a {
+  display: block;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-borde);
+  color: var(--color-texto);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  font-size: 1rem;
+}
+
+.menu-overlay a:hover,
+.menu-overlay a.active {
+  color: var(--color-oro);
+}
+
+.menu-overlay a:last-child {
+  border-bottom: 0;
 }
 
 /* Main */
@@ -401,8 +458,8 @@ a:hover { color: var(--color-acento); }
   position: relative;
   z-index: 1;
   max-width: 720px;
-  margin: clamp(100px, 13vw, 200px) auto 4rem;
-  padding: 3rem 2rem;
+  margin: 0 auto 4rem;
+  padding: clamp(100px, 13vw, 200px) 2rem 3rem;
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -569,27 +626,8 @@ table th {
 
 /* Responsive */
 
-@media (max-width: 768px) {
-  .burger { display: block; }
-
-  .site-nav {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding: 1rem 1rem 0;
-    border-top: 1px solid var(--color-borde);
-  }
-
-  .site-nav.abierto {
-    display: flex;
-  }
-
-  .site-nav a { font-size: 0.95rem; }
-}
-
 @media (max-width: 600px) {
+  .site-nav { gap: 1rem; font-size: 0.85rem; }
   main { padding: 1rem 1rem 1.5rem; }
   .countdown { gap: 0.75rem; }
   .countdown-item { min-width: 50px; }

@@ -30,14 +30,23 @@
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
+  <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-overlay"><span></span><span></span><span></span></button>
+  <aside class="menu-overlay" id="menu-overlay" aria-hidden="true">
+    <a href="/boda/" class="active">Inicio</a>
+    <a href="/boda/cronograma/">Cronograma</a>
+    <a href="/boda/regalos/">Regalos</a>
+    <a href="/boda/galeria/">Galería</a>
+    <a href="/boda/preguntas/">Preguntas Frecuentes</a>
+    <a href="/rsvp/">RSVP</a>
+  </aside>
+
   <div class="marco-superior">
     <img src="/assets/img/decoracion/floral-superior.webp" alt="" class="floral">
   </div>
 
   <header class="site-header">
     <h2 class="site-title"><a href="/boda/">ARIANA &amp; JUAN</a></h2>
-    <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-principal"><span></span><span></span><span></span></button>
-    <nav class="site-nav" id="nav-principal">
+    <nav class="site-nav">
       <a href="/boda/" class="active">Inicio</a>
       <a href="/boda/cronograma/">Cronograma</a>
       <a href="/boda/regalos/">Regalos</a>

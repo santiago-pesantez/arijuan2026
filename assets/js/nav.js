@@ -1,19 +1,25 @@
 (function () {
   function init() {
     const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.site-nav');
-    if (!burger || !nav) return;
+    const overlay = document.querySelector('.menu-overlay');
+    if (!burger || !overlay) return;
+
+    function setOpen(open) {
+      overlay.classList.toggle('abierto', open);
+      burger.setAttribute('aria-expanded', String(open));
+      overlay.setAttribute('aria-hidden', String(!open));
+    }
 
     burger.addEventListener('click', () => {
-      const abierto = nav.classList.toggle('abierto');
-      burger.setAttribute('aria-expanded', String(abierto));
+      setOpen(!overlay.classList.contains('abierto'));
     });
 
-    nav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        nav.classList.remove('abierto');
-        burger.setAttribute('aria-expanded', 'false');
-      });
+    overlay.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('abierto')) setOpen(false);
     });
   }
 
