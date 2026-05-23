@@ -10,8 +10,9 @@ Thumbs.db
 # settings locales de Claude Code (sí se commitean los compartidos en .claude/settings.json)
 .claude/settings.local.json
 
-# Brand kit original: ya copiamos los archivos al root (/favicon.ico, /icons, /social, /site.webmanifest)
+# Brand kits originales: ya copiamos los archivos al root (/favicon.ico, /icons, /social, /site.webmanifest)
 ari-juan-web-brand-assets/
+ari-juan-web-brand-assets-v*/
 
 # Fotos originales sin optimizar (incluye HEIC y MOV pesados). Las optimizadas viven en assets/img/galeria/
 fotos/
