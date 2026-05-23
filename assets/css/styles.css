@@ -99,7 +99,8 @@ main,
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  row-gap: 0.4rem;
+  column-gap: 1.5rem;
   font-size: 0.95rem;
 }
 
@@ -635,7 +636,7 @@ table th {
 /* Responsive */
 
 @media (max-width: 600px) {
-  .site-nav { gap: 1rem; font-size: 0.85rem; }
+  .site-nav { row-gap: 0.3rem; column-gap: 1rem; font-size: 0.85rem; }
   main { padding: 1rem 1rem 1.5rem; }
   .countdown { gap: 0.75rem; }
   .countdown-item { min-width: 50px; }
