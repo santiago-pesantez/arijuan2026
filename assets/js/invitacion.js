@@ -20,7 +20,7 @@ async function renderInvitacion() {
       return;
     }
 
-    document.getElementById('saludo').textContent = invitado.saludo || invitado.nombre;
+    document.getElementById('saludo').textContent = formatearSaludo(invitado);
     document.getElementById('fecha').textContent = config.ceremonia.fecha;
     document.getElementById('hora').textContent = config.ceremonia.hora;
     document.getElementById('lugar').textContent = `${config.ceremonia.lugar}, ${config.ceremonia.direccion}`;

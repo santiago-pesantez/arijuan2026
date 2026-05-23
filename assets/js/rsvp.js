@@ -27,7 +27,7 @@ async function inicializar() {
     configActual = config;
     invitadoActual = invitado;
 
-    saludoEl.textContent = invitado.saludo || invitado.nombre;
+    saludoEl.textContent = formatearSaludo(invitado);
     if (limiteEl) limiteEl.textContent = config.rsvp.fechaLimite;
 
     if (!invitado.incluyeCocktail) {

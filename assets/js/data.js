@@ -53,6 +53,18 @@ async function obtenerInvitado(id) {
   return data.invitados.find(i => i.id === id) || null;
 }
 
+function formatearSaludo(invitado) {
+  const saludo = (invitado.saludo || '').trim();
+  const nombre = (invitado.nombre || '').trim();
+  if (!saludo) return nombre;
+  // Si el saludo es solo un titulo corto (Sr, Sra, Srta, etc), combinarlo con el nombre
+  if (saludo.length <= 6 && !saludo.includes(' ')) {
+    const conPunto = /[.,]$/.test(saludo) ? saludo : saludo + '.';
+    return nombre ? `${conPunto} ${nombre}` : conPunto;
+  }
+  return saludo;
+}
+
 async function enviarRSVPBackend(payload) {
   const config = await cargarConfig();
   if (!backendActivo(config)) return { ok: false, motivo: 'backend no configurado' };
