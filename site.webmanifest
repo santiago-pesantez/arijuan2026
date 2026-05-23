@@ -1,11 +1,11 @@
 {
-  "name": "Ari & Juan 2026",
-  "short_name": "Ari & Juan",
+  "name": "Ariana & Juan 2026",
+  "short_name": "Ariana & Juan",
   "description": "Wedding website",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8f5ef",
-  "theme_color": "#c8a96b",
+  "theme_color": "#1e352b",
   "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",
