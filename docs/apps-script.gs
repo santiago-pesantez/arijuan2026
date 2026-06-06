@@ -3,7 +3,8 @@
  *
  * Pasos rápidos de configuración (ver docs/google-sheets-setup.md para detalle):
  *   1. Crear una Google Sheet con dos pestañas: "Invitados" y "RSVPs".
- *   2. Encabezados de Invitados: id, nombre, saludo, cantidadInvitaciones, incluyeCocktail, mensaje, telefono
+ *   2. Encabezados de Invitados: id, nombre, saludo, cantidadInvitaciones, incluyeCeremonia, incluyeFiesta, incluyeCocktail, mensaje, telefono
+ *      Nota: incluyeCocktail es legacy. Si solo existe esa columna, se usa como fallback de incluyeFiesta.
  *   3. Encabezados de RSVPs: timestamp, id_invitado, nombre_invitado, asistira, asistira_cocktail, acompanante, cantidad_asistentes, detalles_asistentes, mensaje, raw_json
  *   4. Reemplazar SHEET_ID abajo con el ID de tu hoja (lo sacas de la URL).
  *   5. Extensiones > Apps Script, pegar este archivo completo.
@@ -77,12 +78,24 @@ function obtenerInvitados(incluirPrivado) {
   const invitados = filas
     .filter(inv => inv.id)
     .map(inv => {
+      const cocktailLegacy = parseBool(inv.incluyeCocktail);
+      // Si las columnas nuevas no existen en la Sheet, asumir defaults compatibles con el modelo viejo:
+      // - todos invitados a la ceremonia (true por defecto)
+      // - invitados a fiesta = lo que decia incluyeCocktail
+      const incluyeCeremonia = inv.incluyeCeremonia === undefined || inv.incluyeCeremonia === ''
+        ? true
+        : parseBool(inv.incluyeCeremonia);
+      const incluyeFiesta = inv.incluyeFiesta === undefined || inv.incluyeFiesta === ''
+        ? cocktailLegacy
+        : parseBool(inv.incluyeFiesta);
       const base = {
         id: String(inv.id).trim(),
         nombre: String(inv.nombre || '').trim(),
         saludo: String(inv.saludo || '').trim(),
         cantidadInvitaciones: Number(inv.cantidadInvitaciones) || 1,
-        incluyeCocktail: parseBool(inv.incluyeCocktail),
+        incluyeCeremonia: incluyeCeremonia,
+        incluyeFiesta: incluyeFiesta,
+        incluyeCocktail: cocktailLegacy,
         mensaje: String(inv.mensaje || '').trim()
       };
       if (incluirPrivado) {

@@ -22,16 +22,29 @@ async function renderInvitacion() {
 
     document.getElementById('saludo').textContent = formatearSaludo(invitado);
     document.getElementById('fecha').textContent = config.ceremonia.fecha;
-    document.getElementById('hora').textContent = config.ceremonia.hora;
-    document.getElementById('lugar').textContent = `${config.ceremonia.lugar}, ${config.ceremonia.direccion}`;
+    document.getElementById('frase-intro').textContent = construirFraseIntro(invitado);
     const hashtagEl = document.getElementById('hashtag');
     if (hashtagEl) hashtagEl.textContent = config.hashtag;
 
-    const cocktail = document.getElementById('cocktail-msg');
-    if (invitado.incluyeCocktail) {
-      cocktail.textContent = 'Acompáñanos también al cocktail posterior.';
-    } else {
-      cocktail.hidden = true;
+    if (invitado.incluyeCeremonia) {
+      const bloque = document.getElementById('bloque-ceremonia');
+      document.getElementById('ceremonia-hora').textContent = config.ceremonia.hora;
+      document.getElementById('ceremonia-lugar').textContent = `${config.ceremonia.lugar}, ${config.ceremonia.direccion}`;
+      const comida = document.getElementById('comida-msg');
+      if (config.comida) {
+        comida.textContent = `Te esperamos también para la comida desde ${config.comida.hora}.`;
+      } else {
+        comida.hidden = true;
+      }
+      bloque.hidden = false;
+    }
+
+    if (invitado.incluyeFiesta && config.fiesta) {
+      const bloque = document.getElementById('bloque-fiesta');
+      document.getElementById('fiesta-hora').textContent = config.fiesta.hora;
+      document.getElementById('fiesta-lugar').textContent = config.fiesta.lugar +
+        (config.fiesta.direccion && config.fiesta.direccion !== 'Por confirmar' ? `, ${config.fiesta.direccion}` : '');
+      bloque.hidden = false;
     }
 
     const rsvpLink = document.getElementById('rsvp-link');
@@ -48,6 +61,15 @@ async function renderInvitacion() {
     errorEl.textContent = 'Hubo un problema cargando la invitación.';
     errorEl.hidden = false;
   }
+}
+
+function construirFraseIntro(invitado) {
+  const c = !!invitado.incluyeCeremonia;
+  const f = !!invitado.incluyeFiesta;
+  if (c && f) return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a nuestra ceremonia, comida y fiesta.';
+  if (c) return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a nuestra ceremonia y comida.';
+  if (f) return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a nuestra fiesta de boda.';
+  return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a celebrar nuestra boda.';
 }
 
 function registrarApertura(idInvitado) {

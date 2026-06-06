@@ -37,7 +37,7 @@
     <img src="/icons/logo.png" alt="Monograma A J" class="hero-mono">
 
     <p class="saludo" id="saludo"></p>
-    <p class="frase">Con la bendición de nuestras familias, tenemos el honor de invitarte a celebrar nuestra boda.</p>
+    <p class="frase" id="frase-intro">Con la bendición de nuestras familias, tenemos el honor de invitarte a celebrar nuestra boda.</p>
 
     <h1 class="hero-nombres">
       ARIANA ROJAS
@@ -48,9 +48,19 @@
     <hr class="separador-oro">
 
     <p class="hero-fecha" id="fecha"></p>
-    <p class="hero-lugar"><span id="hora"></span></p>
-    <p class="hero-lugar"><span id="lugar"></span></p>
-    <p class="subquote" id="cocktail-msg"></p>
+
+    <div class="evento-bloque" id="bloque-ceremonia" hidden>
+      <h3 class="evento-titulo">Ceremonia y comida</h3>
+      <p class="hero-lugar"><span id="ceremonia-hora"></span></p>
+      <p class="hero-lugar"><span id="ceremonia-lugar"></span></p>
+      <p class="subquote" id="comida-msg"></p>
+    </div>
+
+    <div class="evento-bloque" id="bloque-fiesta" hidden>
+      <h3 class="evento-titulo">Fiesta</h3>
+      <p class="hero-lugar"><span id="fiesta-hora"></span></p>
+      <p class="hero-lugar"><span id="fiesta-lugar"></span></p>
+    </div>
 
     <p class="hashtag" id="hashtag"></p>
 

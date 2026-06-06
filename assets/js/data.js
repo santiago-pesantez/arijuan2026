@@ -25,14 +25,32 @@ async function cargarInvitados({ token } = {}) {
       const resp = await fetch(url.toString());
       if (resp.ok) {
         const data = await resp.json();
-        if (data && Array.isArray(data.invitados)) return data;
+        if (data && Array.isArray(data.invitados)) {
+          return { invitados: data.invitados.map(normalizarInvitado) };
+        }
       }
       console.warn('Backend devolvió respuesta inesperada, usando JSON local');
     } catch (e) {
       console.warn('Falla al consultar backend, usando JSON local:', e);
     }
   }
-  return cargarJSON('/data/invitados.json');
+  const local = await cargarJSON('/data/invitados.json');
+  return { invitados: (local.invitados || []).map(normalizarInvitado) };
+}
+
+// Garantiza los campos incluyeCeremonia e incluyeFiesta aunque el backend aun no los devuelva.
+// Defaults compatibles con el modelo anterior:
+// - incluyeCeremonia: true (todos invitados a la ceremonia por defecto)
+// - incluyeFiesta: si no esta definido, usa incluyeCocktail legacy.
+function normalizarInvitado(inv) {
+  const out = Object.assign({}, inv);
+  if (out.incluyeCeremonia === undefined || out.incluyeCeremonia === null || out.incluyeCeremonia === '') {
+    out.incluyeCeremonia = true;
+  }
+  if (out.incluyeFiesta === undefined || out.incluyeFiesta === null || out.incluyeFiesta === '') {
+    out.incluyeFiesta = !!out.incluyeCocktail;
+  }
+  return out;
 }
 
 const ID_INVITADO_KEY = 'arijuan_invitado_id';

@@ -5,6 +5,8 @@
       "nombre": "Familia Pérez",
       "saludo": "Estimada Familia Pérez",
       "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "incluyeFiesta": true,
       "incluyeCocktail": true,
       "mensaje": "",
       "telefono": "593999000001"
@@ -14,6 +16,8 @@
       "nombre": "María González",
       "saludo": "Querida María",
       "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "incluyeFiesta": false,
       "incluyeCocktail": true,
       "mensaje": "",
       "telefono": "593999000002"
@@ -23,6 +27,8 @@
       "nombre": "Carlos y Ana",
       "saludo": "Queridos Carlos y Ana",
       "cantidadInvitaciones": 2,
+      "incluyeCeremonia": false,
+      "incluyeFiesta": true,
       "incluyeCocktail": false,
       "mensaje": "",
       "telefono": "593999000003"

@@ -57,19 +57,19 @@
     <p id="error" class="error" hidden></p>
 
     <form id="form-rsvp" hidden>
-      <div class="campo">
-        <h3 class="campo-titulo">¿Asistirás a la ceremonia?</h3>
+      <div class="campo" id="seccion-ceremonia" hidden>
+        <h3 class="campo-titulo">¿Asistirás a la ceremonia y comida?</h3>
         <div class="opciones-radio">
-          <label><input type="radio" name="asistencia" value="si" required> Sí, ahí estaré</label>
-          <label><input type="radio" name="asistencia" value="no"> No podré asistir</label>
+          <label><input type="radio" name="asistencia_ceremonia" value="si"> Sí, ahí estaré</label>
+          <label><input type="radio" name="asistencia_ceremonia" value="no"> No podré asistir</label>
         </div>
       </div>
 
-      <div class="campo" id="seccion-cocktail">
-        <h3 class="campo-titulo">¿Asistirás al cocktail posterior?</h3>
+      <div class="campo" id="seccion-fiesta" hidden>
+        <h3 class="campo-titulo">¿Asistirás a la fiesta?</h3>
         <div class="opciones-radio">
-          <label><input type="radio" name="cocktail" value="si"> Sí</label>
-          <label><input type="radio" name="cocktail" value="no"> No</label>
+          <label><input type="radio" name="asistencia_fiesta" value="si"> Sí, ahí estaré</label>
+          <label><input type="radio" name="asistencia_fiesta" value="no"> No podré asistir</label>
         </div>
       </div>
 

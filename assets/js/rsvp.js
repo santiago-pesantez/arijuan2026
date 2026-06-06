@@ -30,12 +30,20 @@ async function inicializar() {
     saludoEl.textContent = formatearSaludo(invitado);
     if (limiteEl) limiteEl.textContent = config.rsvp.fechaLimite;
 
-    if (!invitado.incluyeCocktail) {
-      document.getElementById('seccion-cocktail').hidden = true;
+    const seccionCeremonia = document.getElementById('seccion-ceremonia');
+    if (invitado.incluyeCeremonia) {
+      seccionCeremonia.hidden = false;
+      seccionCeremonia.querySelectorAll('input[name="asistencia_ceremonia"]').forEach(i => i.required = true);
+    }
+
+    const seccionFiesta = document.getElementById('seccion-fiesta');
+    if (invitado.incluyeFiesta) {
+      seccionFiesta.hidden = false;
+      seccionFiesta.querySelectorAll('input[name="asistencia_fiesta"]').forEach(i => i.required = true);
     }
 
     construirSeccionCantidad(invitado.cantidadInvitaciones);
-    construirInputsAsistentes(invitado.cantidadInvitaciones, config.cocktail.menu, invitado.nombre);
+    construirInputsAsistentes(invitado.cantidadInvitaciones, config.comida ? config.comida.menu : (config.cocktail ? config.cocktail.menu : []), invitado.nombre, invitado.incluyeCeremonia);
 
     formEl.hidden = false;
     formEl.addEventListener('submit', enviarRSVP);
@@ -68,11 +76,13 @@ function construirSeccionCantidad(maxCupos) {
   select.addEventListener('change', () => actualizarVisibilidadAsistentes(Number(select.value)));
 }
 
-function construirInputsAsistentes(cantidad, opcionesMenu, primerNombre) {
+function construirInputsAsistentes(cantidad, opcionesMenu, primerNombre, incluyeMenu) {
   const cont = document.getElementById('asistentes');
-  const opcionesHtml = opcionesMenu
+  const opcionesHtml = (opcionesMenu || [])
     .map(o => `<option value="${o}">${o}</option>`)
     .join('');
+
+  const camposMenu = incluyeMenu && opcionesMenu && opcionesMenu.length;
 
   for (let i = 1; i <= cantidad; i++) {
     const wrap = document.createElement('div');
@@ -84,12 +94,13 @@ function construirInputsAsistentes(cantidad, opcionesMenu, primerNombre) {
       <label>Nombre completo
         <input type="text" name="nombre_${i}" value="${escAttr(valorNombre)}" required>
       </label>
+      ${camposMenu ? `
       <label>Preferencia de menú
         <select name="menu_${i}" required>
           <option value="">Selecciona</option>
           ${opcionesHtml}
         </select>
-      </label>
+      </label>` : ''}
       <label>Restricciones alimentarias o alergias (opcional)
         <input type="text" name="restricciones_${i}">
       </label>
@@ -122,8 +133,8 @@ async function enviarRSVP(ev) {
   const btn = ev.target.querySelector('button[type="submit"]');
   const estadoEl = document.getElementById('estado-envio');
 
-  const asistencia = fd.get('asistencia');
-  const cocktail = fd.get('cocktail') || 'no aplica';
+  const asistenciaCeremonia = invitadoActual.incluyeCeremonia ? (fd.get('asistencia_ceremonia') || 'no') : 'no aplica';
+  const asistenciaFiesta = invitadoActual.incluyeFiesta ? (fd.get('asistencia_fiesta') || 'no') : 'no aplica';
   const mensaje = fd.get('mensaje') || '';
   const cantidad = Number(fd.get('cantidad_asistentes') || invitadoActual.cantidadInvitaciones);
 
@@ -139,8 +150,10 @@ async function enviarRSVP(ev) {
   const payload = {
     id_invitado: invitadoActual.id,
     nombre_invitado: invitadoActual.nombre,
-    asistencia,
-    cocktail,
+    asistencia: asistenciaCeremonia,
+    cocktail: asistenciaFiesta,
+    asistencia_ceremonia: asistenciaCeremonia,
+    asistencia_fiesta: asistenciaFiesta,
     acompanante: asistentes.length > 1 ? 'si' : 'no',
     asistentes,
     mensaje
@@ -150,15 +163,19 @@ async function enviarRSVP(ev) {
     `*RSVP - ${configActual.novios.ellaCorto} & ${configActual.novios.elCorto}*`,
     ``,
     `Invitado: ${invitadoActual.nombre}`,
-    `ID: ${invitadoActual.id}`,
-    `Asistirá a la ceremonia: ${asistencia}`,
-    `Asistirá al cocktail: ${cocktail}`,
-    `Cantidad de asistentes: ${asistentes.length}`,
-    ``,
-    `*Asistentes:*`
+    `ID: ${invitadoActual.id}`
   ];
+  if (invitadoActual.incluyeCeremonia) lineas.push(`Asistirá a ceremonia y comida: ${asistenciaCeremonia}`);
+  if (invitadoActual.incluyeFiesta) lineas.push(`Asistirá a la fiesta: ${asistenciaFiesta}`);
+  lineas.push(`Cantidad de asistentes: ${asistentes.length}`);
+  lineas.push('');
+  lineas.push(`*Asistentes:*`);
+
   asistentes.forEach((a, idx) => {
-    lineas.push(`${idx + 1}. ${a.nombre} | Menú: ${a.menu}${a.restricciones ? ` | Alergias: ${a.restricciones}` : ''}`);
+    const partes = [`${idx + 1}. ${a.nombre}`];
+    if (a.menu) partes.push(`Menú: ${a.menu}`);
+    if (a.restricciones) partes.push(`Alergias: ${a.restricciones}`);
+    lineas.push(partes.join(' | '));
   });
   if (mensaje.trim()) {
     lineas.push('');
@@ -176,7 +193,7 @@ async function enviarRSVP(ev) {
     console.warn('No se pudo guardar en backend:', resultado.motivo);
   }
 
-  registrarRSVP(invitadoActual.id, asistencia);
+  registrarRSVP(invitadoActual.id, asistenciaCeremonia);
 
   window.location.href = url;
 }

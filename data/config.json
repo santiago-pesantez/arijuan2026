@@ -19,6 +19,19 @@
     "direccion": "Baños de Cuenca",
     "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8"
   },
+  "comida": {
+    "hora": "12:00 PM en adelante",
+    "lugar": "La Muralla (mismo sitio)",
+    "direccion": "Baños de Cuenca",
+    "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8",
+    "menu": ["Clásico", "Vegetariano"]
+  },
+  "fiesta": {
+    "hora": "Por confirmar",
+    "lugar": "Por confirmar",
+    "direccion": "Por confirmar",
+    "mapsUrl": ""
+  },
   "cocktail": {
     "hora": "12:00 PM en adelante",
     "lugar": "La Muralla (mismo sitio)",

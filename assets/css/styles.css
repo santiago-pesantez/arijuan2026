@@ -491,6 +491,28 @@ a:hover { color: var(--color-acento); }
   color: var(--color-oro);
 }
 
+.evento-bloque {
+  margin: 1.5rem auto;
+  padding-top: 1rem;
+  max-width: 480px;
+}
+
+.evento-bloque + .evento-bloque {
+  border-top: 1px solid var(--color-borde);
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+}
+
+.evento-titulo {
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-headings-tight);
+  color: var(--color-oro);
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+  text-align: center;
+}
+
 /* Formulario RSVP */
 
 form {
