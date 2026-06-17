@@ -20,6 +20,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <script>
+    // Si la invitación del visitante es solo recepción, ocultar la ceremonia antes de pintar.
+    try {
+      if (localStorage.getItem('arijuan_incluye_ceremonia') === '0') {
+        document.documentElement.classList.add('sin-ceremonia');
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body>
   <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-overlay"><span></span><span></span><span></span></button>
@@ -52,12 +60,11 @@
     <h1>SÁBADO, 25 DE JULIO DE 2026</h1>
     <hr class="separador-oro">
 
-    <section class="evento">
+    <section class="evento" id="seccion-ceremonia">
       <h2>Ceremonia</h2>
       <p class="hora">10:30 AM</p>
       <p class="lugar">La Muralla</p>
       <p><a href="https://maps.app.goo.gl/4U5YrAEBExgDDoxb8" target="_blank" rel="noopener">Baños de Cuenca, Azuay, Ecuador</a></p>
-      <p class="detalle"><strong>Código de Vestimenta:</strong> Formal. Inspiración de colores: tonos tierra, nude, pasteles suaves y colores neutros. Les pedimos evitar blanco y verde para mantener la armonía de nuestra celebración.</p>
       <p class="detalle">La ceremonia se celebrará al aire libre en La Muralla. Recomendamos llegar 15 minutos antes para acomodarse.</p>
       <div class="botones">
         <a href="https://maps.app.goo.gl/4U5YrAEBExgDDoxb8" target="_blank" rel="noopener" class="btn btn-secundario">Ver en mapa</a>
@@ -65,7 +72,7 @@
       </div>
     </section>
 
-    <section class="evento">
+    <section class="evento" id="seccion-recepcion">
       <h2>Recepción</h2>
       <p class="hora">1:30 PM en adelante</p>
       <p class="lugar">La Muralla (mismo sitio)</p>
@@ -74,6 +81,15 @@
       <div class="botones">
         <a href="https://maps.app.goo.gl/4U5YrAEBExgDDoxb8" target="_blank" rel="noopener" class="btn btn-secundario">Ver en mapa</a>
       </div>
+    </section>
+
+    <section class="evento" id="seccion-vestimenta">
+      <h2>Código de vestimenta</h2>
+      <!-- Reemplazar el archivo /assets/img/invitacion/vestimenta.jpg con la imagen final del código de vestimenta -->
+      <img class="evento-imagen" src="/assets/img/invitacion/vestimenta.jpg" alt="Código de vestimenta">
+      <p class="detalle">Inspiración de colores: tonos tierra, nude, pasteles suaves y colores neutros.</p>
+      <p class="detalle">Con cariño, les pedimos evitar prendas en color blanco y verde para mantener la armonía de nuestra celebración.</p>
+      <p class="detalle">Nuestra ceremonia se llevará a cabo al aire libre. Les recomendamos llegar con al menos 15 minutos de anticipación para acomodarse cómodamente antes de su inicio.</p>
     </section>
   </main>
 

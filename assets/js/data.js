@@ -79,7 +79,15 @@ function obtenerIdInvitado() {
 async function obtenerInvitado(id) {
   if (!id) return null;
   const data = await cargarInvitados();
-  return data.invitados.find(i => i.id === id) || null;
+  const invitado = data.invitados.find(i => i.id === id) || null;
+  if (invitado) {
+    // Cachear el tipo de invitación para que otras páginas (cronograma) muestren
+    // u oculten la ceremonia sin tener que volver a consultar el backend.
+    try {
+      localStorage.setItem('arijuan_incluye_ceremonia', invitado.incluyeCeremonia ? '1' : '0');
+    } catch (_) {}
+  }
+  return invitado;
 }
 
 function formatearSaludo(invitado) {

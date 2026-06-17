@@ -395,6 +395,9 @@ a:hover { color: var(--color-acento); }
 
 .evento:last-child { border-bottom: none; }
 
+/* Invitados solo a la recepción: el cronograma oculta la ceremonia */
+.sin-ceremonia #seccion-ceremonia { display: none; }
+
 .evento .hora {
   font-family: var(--serif);
   font-size: 1.15rem;
