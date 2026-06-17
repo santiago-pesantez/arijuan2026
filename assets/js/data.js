@@ -38,17 +38,12 @@ async function cargarInvitados({ token } = {}) {
   return { invitados: (local.invitados || []).map(normalizarInvitado) };
 }
 
-// Garantiza los campos incluyeCeremonia e incluyeFiesta aunque el backend aun no los devuelva.
-// Defaults compatibles con el modelo anterior:
-// - incluyeCeremonia: true (todos invitados a la ceremonia por defecto)
-// - incluyeFiesta: si no esta definido, usa incluyeCocktail legacy.
+// Garantiza incluyeCeremonia con default true (todos invitados a la ceremonia)
+// para no romper invitados existentes cuando aun no se agrega la columna.
 function normalizarInvitado(inv) {
   const out = Object.assign({}, inv);
   if (out.incluyeCeremonia === undefined || out.incluyeCeremonia === null || out.incluyeCeremonia === '') {
     out.incluyeCeremonia = true;
-  }
-  if (out.incluyeFiesta === undefined || out.incluyeFiesta === null || out.incluyeFiesta === '') {
-    out.incluyeFiesta = !!out.incluyeCocktail;
   }
   return out;
 }

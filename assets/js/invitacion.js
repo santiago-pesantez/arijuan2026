@@ -30,21 +30,13 @@ async function renderInvitacion() {
       const bloque = document.getElementById('bloque-ceremonia');
       document.getElementById('ceremonia-hora').textContent = config.ceremonia.hora;
       document.getElementById('ceremonia-lugar').textContent = `${config.ceremonia.lugar}, ${config.ceremonia.direccion}`;
-      const comida = document.getElementById('comida-msg');
-      if (config.comida) {
-        comida.textContent = `Te esperamos también para la comida desde ${config.comida.hora}.`;
-      } else {
-        comida.hidden = true;
-      }
       bloque.hidden = false;
     }
 
-    if (invitado.incluyeFiesta && config.fiesta) {
-      const bloque = document.getElementById('bloque-fiesta');
-      document.getElementById('fiesta-hora').textContent = config.fiesta.hora;
-      document.getElementById('fiesta-lugar').textContent = config.fiesta.lugar +
-        (config.fiesta.direccion && config.fiesta.direccion !== 'Por confirmar' ? `, ${config.fiesta.direccion}` : '');
-      bloque.hidden = false;
+    const recepcion = config.recepcion || config.cocktail || config.comida;
+    if (recepcion) {
+      document.getElementById('recepcion-hora').textContent = recepcion.hora;
+      document.getElementById('recepcion-lugar').textContent = `${recepcion.lugar}, ${recepcion.direccion || ''}`.replace(/, $/, '');
     }
 
     const rsvpLink = document.getElementById('rsvp-link');
@@ -64,12 +56,10 @@ async function renderInvitacion() {
 }
 
 function construirFraseIntro(invitado) {
-  const c = !!invitado.incluyeCeremonia;
-  const f = !!invitado.incluyeFiesta;
-  if (c && f) return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a nuestra ceremonia, comida y fiesta.';
-  if (c) return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a nuestra ceremonia y comida.';
-  if (f) return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a nuestra fiesta de boda.';
-  return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a celebrar nuestra boda.';
+  if (invitado.incluyeCeremonia) {
+    return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a nuestra ceremonia y recepción.';
+  }
+  return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a la recepción de nuestra boda.';
 }
 
 function registrarApertura(idInvitado) {

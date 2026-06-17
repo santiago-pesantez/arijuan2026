@@ -11,15 +11,14 @@ El sitio usa una Google Sheet como fuente de verdad para la lista de invitados y
 
 ### Encabezados de la pestaña `Invitados` (fila 1, exactos, en este orden):
 
-| id | nombre | saludo | cantidadInvitaciones | incluyeCeremonia | incluyeFiesta | incluyeCocktail | mensaje | telefono |
-|---|---|---|---|---|---|---|---|---|
+| id | nombre | saludo | cantidadInvitaciones | incluyeCeremonia | mensaje | telefono |
+|---|---|---|---|---|---|---|
 
 Notas:
 - `id` se llena automáticamente con la función del Apps Script (paso 6) o se puede dejar para que el sitio falle si no existe.
-- `incluyeCeremonia`: TRUE si está invitado a la ceremonia + comida del mediodía. Si la celda está vacía, se asume TRUE por defecto.
-- `incluyeFiesta`: TRUE si está invitado a la fiesta posterior. Si la celda está vacía, se hereda de `incluyeCocktail` (compat hacia atrás).
-- `incluyeCocktail` queda como legacy. Si todavía existe en hojas viejas, se usa como fallback de `incluyeFiesta`. En filas nuevas puedes dejarla en blanco.
-- Todas las columnas booleanas admiten `TRUE`/`FALSE`, `si`/`no`, `1`/`0`.
+- `incluyeCeremonia`: TRUE si el invitado va a la ceremonia + recepción. FALSE si solo va a la recepción. Si la celda está vacía, se asume TRUE por defecto.
+- Todos los invitados están automáticamente invitados a la recepción (no hay columna separada para eso). No existe el caso de "ceremonia sin recepción".
+- Admite `TRUE`/`FALSE`, `si`/`no`, `1`/`0`.
 - `cantidadInvitaciones` es un número (cuántos asientos cubre la invitación).
 - `telefono` en formato internacional sin `+` ni espacios. Ejemplo Ecuador: `593987654321`.
 
