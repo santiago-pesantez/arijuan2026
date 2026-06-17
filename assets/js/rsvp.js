@@ -37,8 +37,16 @@ async function inicializar() {
     }
 
     construirSeccionCantidad(invitado.cantidadInvitaciones);
-    const recepcion = config.recepcion || config.cocktail || config.comida || {};
-    construirInputsAsistentes(invitado.cantidadInvitaciones, recepcion.menu || [], invitado.nombre);
+    // El menú es parte de la ceremonia. Solo se pregunta a quien va a la ceremonia.
+    const fuenteMenu = config.recepcion || config.comida || config.cocktail || {};
+    const opcionesMenu = invitado.incluyeCeremonia ? (fuenteMenu.menu || []) : [];
+    const ayuda = document.getElementById('asistentes-ayuda');
+    if (ayuda) {
+      ayuda.textContent = opcionesMenu.length
+        ? 'Por favor confirma el nombre completo y la preferencia de menú de cada persona que asistirá.'
+        : 'Por favor confirma el nombre completo de cada persona que asistirá.';
+    }
+    construirInputsAsistentes(invitado.cantidadInvitaciones, opcionesMenu, invitado.nombre);
 
     formEl.hidden = false;
     formEl.addEventListener('submit', enviarRSVP);
@@ -55,8 +63,8 @@ function construirSeccionCantidad(maxCupos) {
   const info = document.getElementById('cupos-info');
 
   info.textContent = maxCupos === 1
-    ? 'Tu invitación es individual.'
-    : `Tu invitación incluye hasta ${maxCupos} personas. Indica cuántas asistirán.`;
+    ? 'Hemos reservado esta invitación para 1 persona.'
+    : `Hemos reservado esta invitación para ${maxCupos} personas. Por favor, confirma cuántas asistirán.`;
 
   for (let i = 1; i <= maxCupos; i++) {
     const opt = document.createElement('option');
@@ -71,18 +79,24 @@ function construirSeccionCantidad(maxCupos) {
   select.addEventListener('change', () => actualizarVisibilidadAsistentes(Number(select.value)));
 }
 
-function construirInputsAsistentes(cantidad, opcionesMenu, primerNombre) {
+function construirInputsAsistentes(cantidad, opcionesMenu, nombreInvitado) {
   const cont = document.getElementById('asistentes');
   const tieneMenu = Array.isArray(opcionesMenu) && opcionesMenu.length > 0;
   const opcionesHtml = (opcionesMenu || [])
     .map(o => `<option value="${o}">${o}</option>`)
     .join('');
 
+  // Los nombres en la lista vienen separados por comas; cada uno prepobla un asistente.
+  const nombres = String(nombreInvitado || '')
+    .split(',')
+    .map(n => n.trim())
+    .filter(Boolean);
+
   for (let i = 1; i <= cantidad; i++) {
     const wrap = document.createElement('div');
     wrap.className = 'asistente';
     wrap.dataset.indice = String(i);
-    const valorNombre = i === 1 && primerNombre ? primerNombre : '';
+    const valorNombre = nombres[i - 1] || '';
     wrap.innerHTML = `
       <h4>Asistente ${i}</h4>
       <label>Nombre completo
@@ -95,9 +109,6 @@ function construirInputsAsistentes(cantidad, opcionesMenu, primerNombre) {
           ${opcionesHtml}
         </select>
       </label>` : ''}
-      <label>Restricciones alimentarias o alergias (opcional)
-        <input type="text" name="restricciones_${i}">
-      </label>
     `;
     cont.appendChild(wrap);
   }
@@ -130,14 +141,14 @@ async function enviarRSVP(ev) {
   const asistenciaCeremonia = invitadoActual.incluyeCeremonia ? (fd.get('asistencia_ceremonia') || 'no') : 'no aplica';
   const asistenciaRecepcion = fd.get('asistencia_recepcion') || 'no';
   const mensaje = fd.get('mensaje') || '';
+  const cancion = fd.get('cancion') || '';
   const cantidad = Number(fd.get('cantidad_asistentes') || invitadoActual.cantidadInvitaciones);
 
   const asistentes = [];
   for (let i = 1; i <= cantidad; i++) {
     asistentes.push({
       nombre: fd.get(`nombre_${i}`) || '',
-      menu: fd.get(`menu_${i}`) || '',
-      restricciones: fd.get(`restricciones_${i}`) || ''
+      menu: fd.get(`menu_${i}`) || ''
     });
   }
 
@@ -150,6 +161,7 @@ async function enviarRSVP(ev) {
     asistencia_recepcion: asistenciaRecepcion,
     acompanante: asistentes.length > 1 ? 'si' : 'no',
     asistentes,
+    cancion,
     mensaje
   };
 
@@ -168,9 +180,12 @@ async function enviarRSVP(ev) {
   asistentes.forEach((a, idx) => {
     const partes = [`${idx + 1}. ${a.nombre}`];
     if (a.menu) partes.push(`Menú: ${a.menu}`);
-    if (a.restricciones) partes.push(`Alergias: ${a.restricciones}`);
     lineas.push(partes.join(' | '));
   });
+  if (cancion.trim()) {
+    lineas.push('');
+    lineas.push(`Canción para la fiesta: ${cancion}`);
+  }
   if (mensaje.trim()) {
     lineas.push('');
     lineas.push(`Mensaje: ${mensaje}`);

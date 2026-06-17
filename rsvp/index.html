@@ -82,13 +82,19 @@
 
       <div class="campo">
         <h3 class="campo-titulo">Datos de los asistentes</h3>
-        <p class="subquote" style="text-align:left; margin: 0 0 .75rem">Por favor incluye el nombre completo y la preferencia de menú de cada persona que asistirá.</p>
+        <p class="subquote" id="asistentes-ayuda" style="text-align:left; margin: 0 0 .75rem">Por favor confirma el nombre completo de cada persona que asistirá.</p>
         <div id="asistentes"></div>
       </div>
 
       <div class="campo">
         <h3 class="campo-titulo">Mensaje para los novios (opcional)</h3>
         <textarea name="mensaje" rows="3"></textarea>
+      </div>
+
+      <div class="campo">
+        <h3 class="campo-titulo">¿Qué canción no podría faltar en la fiesta? (opcional)</h3>
+        <label class="visually-hidden" for="cancion">Canción sugerida</label>
+        <input type="text" id="cancion" name="cancion" placeholder="Nombre de la canción y artista">
       </div>
 
       <p id="estado-envio" class="estado-envio" hidden></p>

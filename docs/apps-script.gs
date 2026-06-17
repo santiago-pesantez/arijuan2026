@@ -5,7 +5,7 @@
  *   1. Crear una Google Sheet con dos pestañas: "Invitados" y "RSVPs".
  *   2. Encabezados de Invitados: id, nombre, saludo, cantidadInvitaciones, incluyeCeremonia, mensaje, telefono
  *      incluyeCeremonia: TRUE/FALSE. Si vacio se asume TRUE. Todos los invitados van a la recepcion siempre.
- *   3. Encabezados de RSVPs: timestamp, id_invitado, nombre_invitado, asistira, asistira_cocktail, acompanante, cantidad_asistentes, detalles_asistentes, mensaje, raw_json
+ *   3. Encabezados de RSVPs: timestamp, id_invitado, nombre_invitado, asistira_ceremonia, asistira_recepcion, acompanante, cantidad_asistentes, detalles_asistentes, cancion, mensaje, raw_json
  *   4. Reemplazar SHEET_ID abajo con el ID de tu hoja (lo sacas de la URL).
  *   5. Extensiones > Apps Script, pegar este archivo completo.
  *   6. Definir el token de admin en Project Settings > Script Properties:
@@ -119,18 +119,19 @@ function guardarRSVP(payload) {
   const { sheet } = leerHoja(RSVPS_TAB);
   const asistentes = Array.isArray(payload.asistentes) ? payload.asistentes : [];
   const detalles = asistentes
-    .map(a => `${a.nombre || ''} | ${a.menu || ''}${a.restricciones ? ` | ${a.restricciones}` : ''}`)
+    .map(a => `${a.nombre || ''}${a.menu ? ` | ${a.menu}` : ''}`)
     .join('\n');
 
   sheet.appendRow([
     new Date(),
     payload.id_invitado || '',
     payload.nombre_invitado || '',
-    payload.asistencia || '',
-    payload.cocktail || '',
+    payload.asistencia_ceremonia || payload.asistencia || '',
+    payload.asistencia_recepcion || payload.cocktail || '',
     payload.acompanante || '',
     asistentes.length,
     detalles,
+    payload.cancion || '',
     payload.mensaje || '',
     JSON.stringify(payload)
   ]);

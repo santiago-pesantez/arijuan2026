@@ -24,10 +24,10 @@ Notas:
 
 ### Encabezados de la pestaña `RSVPs` (fila 1, exactos, en este orden):
 
-| timestamp | id_invitado | nombre_invitado | asistira | asistira_cocktail | acompanante | cantidad_asistentes | detalles_asistentes | mensaje | raw_json |
-|---|---|---|---|---|---|---|---|---|---|
+| timestamp | id_invitado | nombre_invitado | asistira_ceremonia | asistira_recepcion | acompanante | cantidad_asistentes | detalles_asistentes | cancion | mensaje | raw_json |
+|---|---|---|---|---|---|---|---|---|---|---|
 
-El Apps Script solo escribe, no lee de aquí.
+El Apps Script solo escribe, no lee de aquí. Si ya tienes una hoja con los encabezados antiguos (`asistira`, `asistira_cocktail`, sin `cancion`), agrega la columna `cancion` antes de `mensaje` y renombra los dos primeros; el script escribe por posición de columna.
 
 ## 2. Apuntar el Apps Script a la Sheet
 
