@@ -571,21 +571,16 @@ a:hover { color: var(--color-acento); }
   margin-bottom: 0.5rem;
 }
 
-/* Placeholder de imagen dentro de cada bloque de evento */
+/* Imagen de cada bloque de evento.
+   Hoy es un placeholder de 1px (casi invisible); al reemplazar el archivo por la
+   foto final se mostrará centrada y limitada a este tamaño. */
 .evento-imagen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 320px;
-  aspect-ratio: 4 / 3;
+  display: block;
+  width: auto;
+  max-width: 360px;
+  max-height: 280px;
+  height: auto;
   margin: 0.5rem auto 0.85rem;
-  background: var(--color-fondo-suave);
-  border: 1px dashed var(--color-oro-claro);
-  color: var(--color-texto-suave);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
   object-fit: cover;
 }
 
