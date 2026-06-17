@@ -21,6 +21,11 @@ fotos/
 /img.png
 /screenshot*.png
 
+# Documentos de trabajo Word/Office
+*.docx
+*.doc
+~$*
+
 # datos sensibles que no se suben al repo público
 data/invitados.private.json
 data/rsvps.json
