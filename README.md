@@ -15,7 +15,7 @@ Sitio web estático hosteado en **GitHub Pages** bajo el dominio `arijuan2026.co
 | Lugar | La Muralla, Baños de Cuenca |
 | Hashtag | #AriAndJuan |
 | Invitados estimados | ~130 |
-| RSVP hasta | 30 de junio de 2026 |
+| RSVP hasta | 5 de julio de 2026 |
 | Estilo | Rústico, bohemio, elegante |
 | Colores | Verde salvia, blanco marfil, terracota |
 | Menú | Clásico o Vegetariano |
