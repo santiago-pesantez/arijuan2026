@@ -38,6 +38,23 @@ async function cargarInvitados({ token } = {}) {
   return { invitados: (local.invitados || []).map(normalizarInvitado) };
 }
 
+// Construye el nombre que se muestra en la invitación a partir de la lista de
+// nombres separados por comas en el campo `nombre`:
+// - 1 nombre  -> ese nombre
+// - 2 nombres -> "Nombre1 y Nombre2"
+// - 3 o más   -> "PrimerNombre y familia."
+function nombreParaInvitacion(invitado) {
+  const nombres = String(invitado.nombre || '')
+    .split(',')
+    .map(n => n.trim())
+    .filter(Boolean);
+  if (nombres.length === 0) return String(invitado.nombre || '').trim();
+  if (nombres.length === 1) return nombres[0];
+  if (nombres.length === 2) return `${nombres[0]} y ${nombres[1]}`;
+  const primerNombre = nombres[0].split(/\s+/)[0];
+  return `${primerNombre} y familia.`;
+}
+
 // Garantiza incluyeCeremonia con default true (todos invitados a la ceremonia)
 // para no romper invitados existentes cuando aun no se agrega la columna.
 function normalizarInvitado(inv) {

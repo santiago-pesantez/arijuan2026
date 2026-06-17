@@ -20,11 +20,15 @@
     "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8"
   },
   "recepcion": {
-    "hora": "12:00 PM en adelante",
+    "hora": "1:30 PM en adelante",
     "lugar": "La Muralla (mismo sitio)",
     "direccion": "Baños de Cuenca",
     "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8",
     "menu": ["Clásico", "Vegetariano"]
+  },
+  "padres": {
+    "novia": "Carlos Rojas y Ligia Pesantez",
+    "novio": "Eladio Patiño y Lidia Patiño"
   },
   "rsvp": {
     "telefonoWhatsapp": "593985424397",

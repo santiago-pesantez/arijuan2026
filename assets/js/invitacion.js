@@ -20,11 +20,17 @@ async function renderInvitacion() {
       return;
     }
 
-    document.getElementById('saludo').textContent = formatearSaludo(invitado);
+    document.getElementById('saludo').textContent = nombreParaInvitacion(invitado);
     document.getElementById('fecha').textContent = config.ceremonia.fecha;
-    document.getElementById('frase-intro').textContent = construirFraseIntro(invitado);
     const hashtagEl = document.getElementById('hashtag');
     if (hashtagEl) hashtagEl.textContent = config.hashtag;
+
+    if (config.padres) {
+      const novia = document.getElementById('padres-novia');
+      const novio = document.getElementById('padres-novio');
+      if (novia) novia.textContent = config.padres.novia || '';
+      if (novio) novio.textContent = config.padres.novio || '';
+    }
 
     if (invitado.incluyeCeremonia) {
       const bloque = document.getElementById('bloque-ceremonia');
@@ -53,13 +59,6 @@ async function renderInvitacion() {
     errorEl.textContent = 'Hubo un problema cargando la invitación.';
     errorEl.hidden = false;
   }
-}
-
-function construirFraseIntro(invitado) {
-  if (invitado.incluyeCeremonia) {
-    return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a nuestra ceremonia y recepción.';
-  }
-  return 'Con la bendición de nuestras familias, tenemos el honor de invitarte a la recepción de nuestra boda.';
 }
 
 function registrarApertura(idInvitado) {
