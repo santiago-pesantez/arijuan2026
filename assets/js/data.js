@@ -42,7 +42,7 @@ async function cargarInvitados({ token } = {}) {
 // nombres separados por comas en el campo `nombre`:
 // - 1 nombre  -> ese nombre
 // - 2 nombres -> "Nombre1 y Nombre2"
-// - 3 o más   -> "PrimerNombre y familia."
+// - 3 o más   -> "Nombre1 completo (nombre y apellido) y familia."
 function nombreParaInvitacion(invitado) {
   const nombres = String(invitado.nombre || '')
     .split(',')
@@ -51,8 +51,7 @@ function nombreParaInvitacion(invitado) {
   if (nombres.length === 0) return String(invitado.nombre || '').trim();
   if (nombres.length === 1) return nombres[0];
   if (nombres.length === 2) return `${nombres[0]} y ${nombres[1]}`;
-  const primerNombre = nombres[0].split(/\s+/)[0];
-  return `${primerNombre} y familia.`;
+  return `${nombres[0]} y familia.`;
 }
 
 // Garantiza incluyeCeremonia con default true (todos invitados a la ceremonia)

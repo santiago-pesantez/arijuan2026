@@ -25,6 +25,10 @@ async function renderInvitacion() {
     const hashtagEl = document.getElementById('hashtag');
     if (hashtagEl) hashtagEl.textContent = config.hashtag;
 
+    // El lugar es el mismo para ceremonia y recepción: se muestra una sola vez.
+    document.getElementById('lugar').textContent =
+      `${config.ceremonia.lugar}, ${config.ceremonia.direccion}`.replace(/, $/, '');
+
     if (config.padres) {
       const novia = document.getElementById('padres-novia');
       const novio = document.getElementById('padres-novio');
@@ -33,16 +37,13 @@ async function renderInvitacion() {
     }
 
     if (invitado.incluyeCeremonia) {
-      const bloque = document.getElementById('bloque-ceremonia');
       document.getElementById('ceremonia-hora').textContent = config.ceremonia.hora;
-      document.getElementById('ceremonia-lugar').textContent = `${config.ceremonia.lugar}, ${config.ceremonia.direccion}`;
-      bloque.hidden = false;
+      document.getElementById('bloque-ceremonia').hidden = false;
     }
 
     const recepcion = config.recepcion || config.cocktail || config.comida;
     if (recepcion) {
       document.getElementById('recepcion-hora').textContent = recepcion.hora;
-      document.getElementById('recepcion-lugar').textContent = `${recepcion.lugar}, ${recepcion.direccion || ''}`.replace(/, $/, '');
     }
 
     const rsvpLink = document.getElementById('rsvp-link');

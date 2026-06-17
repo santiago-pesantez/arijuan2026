@@ -565,6 +565,30 @@ a:hover { color: var(--color-acento); }
   text-align: center;
 }
 
+/* Lugar único de la invitación (ceremonia y recepción comparten sede) */
+.invitacion-lugar {
+  margin-top: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Placeholder de imagen dentro de cada bloque de evento */
+.evento-imagen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4 / 3;
+  margin: 0.5rem auto 0.85rem;
+  background: var(--color-fondo-suave);
+  border: 1px dashed var(--color-oro-claro);
+  color: var(--color-texto-suave);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  object-fit: cover;
+}
+
 /* Formulario RSVP */
 
 form {

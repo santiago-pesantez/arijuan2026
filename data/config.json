@@ -8,13 +8,13 @@
   "hashtag": "#AriAndJuan",
   "ciudad": "Cuenca, Ecuador",
   "fecha": {
-    "iso": "2026-07-25T11:00:00-05:00",
+    "iso": "2026-07-25T10:30:00-05:00",
     "texto": "Sábado, 25 de julio de 2026",
     "textoCorto": "25 julio 2026"
   },
   "ceremonia": {
     "fecha": "Sábado, 25 de julio de 2026",
-    "hora": "11:00 AM a 12:00 PM",
+    "hora": "10:30 AM",
     "lugar": "La Muralla",
     "direccion": "Baños de Cuenca",
     "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8"

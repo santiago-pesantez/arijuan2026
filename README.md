@@ -10,7 +10,7 @@ Sitio web estático hosteado en **GitHub Pages** bajo el dominio `arijuan2026.co
 |---|---|
 | Novios | Ariana Rojas & Juan Patiño |
 | Fecha | Sábado, 25 de julio de 2026 |
-| Hora ceremonia | 11:00 AM a 12:00 PM |
+| Hora ceremonia | 10:30 AM |
 | Hora recepción | 1:30 PM en adelante |
 | Lugar | La Muralla, Baños de Cuenca |
 | Hashtag | #AriAndJuan |
