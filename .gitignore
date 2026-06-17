@@ -22,9 +22,11 @@ fotos/
 /img.png
 /screenshot*.png
 
-# Documentos de trabajo Word/Office
+# Documentos de trabajo Word/Office y listas de invitados (datos privados)
 *.docx
 *.doc
+*.xlsx
+*.xls
 ~$*
 
 # datos sensibles que no se suben al repo público
