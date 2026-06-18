@@ -574,17 +574,23 @@ a:hover { color: var(--color-acento); }
   margin-bottom: 0.5rem;
 }
 
-/* Imagen de cada bloque de evento.
-   Hoy es un placeholder de 1px (casi invisible); al reemplazar el archivo por la
-   foto final se mostrará centrada y limitada a este tamaño. */
+/* Ilustración de cada bloque de evento (anillos, copas, vestido). */
 .evento-imagen {
   display: block;
   width: auto;
-  max-width: 360px;
-  max-height: 280px;
+  max-width: 210px;
+  max-height: 190px;
   height: auto;
   margin: 0.5rem auto 0.85rem;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+/* Nombre del lugar dentro de cada bloque de evento de la invitación. */
+.evento-lugar {
+  margin: 0.5rem 0 0.1rem;
+  color: var(--color-texto);
+  font-weight: 500;
+  letter-spacing: 0.03em;
 }
 
 /* Formulario RSVP */

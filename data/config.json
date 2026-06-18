@@ -15,14 +15,14 @@
   "ceremonia": {
     "fecha": "Sábado, 25 de julio de 2026",
     "hora": "10:30",
-    "lugar": "La Muralla",
-    "direccion": "Baños de Cuenca",
+    "lugar": "Salón de Eventos y Recepciones La Muralla",
+    "direccion": "Baños, Cuenca",
     "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8"
   },
   "recepcion": {
     "hora": "13:00 en adelante",
-    "lugar": "La Muralla (mismo sitio)",
-    "direccion": "Baños de Cuenca",
+    "lugar": "Salón de Eventos y Recepciones La Muralla",
+    "direccion": "Baños, Cuenca",
     "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8",
     "menu": ["Clásico", "Vegetariano"]
   },
