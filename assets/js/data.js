@@ -92,11 +92,31 @@ function obtenerIdInvitado() {
   try { return localStorage.getItem(ID_INVITADO_KEY); } catch (_) { return null; }
 }
 
+const INVITADO_CACHE_PREFIX = 'arijuan_inv_';
+
+// Lee el invitado guardado en este navegador (para mostrar la invitación al
+// instante mientras se revalida con el backend).
+function leerInvitadoCache(id) {
+  try {
+    const raw = localStorage.getItem(INVITADO_CACHE_PREFIX + id);
+    return raw ? JSON.parse(raw) : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function guardarInvitadoCache(id, invitado) {
+  try {
+    localStorage.setItem(INVITADO_CACHE_PREFIX + id, JSON.stringify(invitado));
+  } catch (_) {}
+}
+
 async function obtenerInvitado(id) {
   if (!id) return null;
   const data = await cargarInvitados();
   const invitado = data.invitados.find(i => i.id === id) || null;
   if (invitado) {
+    guardarInvitadoCache(id, invitado);
     // Cachear el tipo de invitación para que otras páginas (cronograma) muestren
     // u oculten la ceremonia sin tener que volver a consultar el backend.
     try {
