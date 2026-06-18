@@ -1,31 +1,724 @@
 {
   "invitados": [
     {
-      "id": "ari-juan-demo1",
-      "nombre": "Familia Pérez",
-      "saludo": "Estimada Familia Pérez",
+      "id": "luis-rojas-eugenia-o-1icd",
+      "nombre": "Luis Rojas, Eugenia Ochoa",
+      "saludo": "",
       "cantidadInvitaciones": 2,
       "incluyeCeremonia": true,
-      "mensaje": "",
-      "telefono": "593999000001"
+      "mensaje": ""
     },
     {
-      "id": "ari-juan-demo2",
-      "nombre": "María González",
-      "saludo": "Querida María",
+      "id": "andres-rojas-andrea--ncj5",
+      "nombre": "Andres Rojas, Andrea Paredes, Renato Rojas",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "stalin-rojas-natali--04v3",
+      "nombre": "Stalin Rojas, Natali Polo",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "christian-bucheli-ma-x3wa",
+      "nombre": "Christian Bucheli, Maria Eugenia Rojas, María Gracia Blacio",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "mariana-rojas-dianit-ulb7",
+      "nombre": "Mariana Rojas, Dianita",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "sandra-zambrano-dome-l1bd",
+      "nombre": "Sandra Zambrano, Doménica Granda, Micaela Granda",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "ramiro-nieto-tamara--eehy",
+      "nombre": "Ramiro Nieto , Tamara Granda",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "henry-zambrano-marie-avbg",
+      "nombre": "Henry Zambrano, Mariela Muñoz",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "teresa-rojas-btmg",
+      "nombre": "Teresa Rojas",
+      "saludo": "Sra.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "daniel-merchan-jessi-l8xq",
+      "nombre": "Daniel Merchan, Jessica Claudio",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "ruben-siavichay-ana--9tec",
+      "nombre": "Ruben Siavichay, Ana Rojas",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "hector-rodriguez-xqdf",
+      "nombre": "Hector Rodriguez",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "alejo-calle-zoila-ro-18qx",
+      "nombre": "Alejo Calle, Zoila Rojas",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "augusto-calle-ximena-givf",
+      "nombre": "Augusto Calle, Ximena Gomez",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "patricio-rojas-ma-lu-3n22",
+      "nombre": "Patricio Rojas, Ma.Luisa Merchan",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "denisse-rojas-dwik",
+      "nombre": "Denisse Rojas",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "juan-pablo-abril-kar-i64o",
+      "nombre": "Juan Pablo Abril, Karla Rojas",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "richard-rojas-kelly--jm43",
+      "nombre": "Richard Rojas, Kelly Ortega",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "richard-rojas-kelly--jm43",
+      "nombre": "Richard Rojas, Kelly Ortega",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "damian-rojas-samanth-ux8e",
+      "nombre": "Damian Rojas, Samantha Rojas",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "fabian-pesantez-joha-yxj5",
+      "nombre": "Fabian Pesantez, Johanna Cobos, Estebitan Pesantez",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "catalina-izquierdo-h7gb",
+      "nombre": "Catalina Izquierdo",
+      "saludo": "Sra.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "paola-pesantez-rafae-t335",
+      "nombre": "Paola Pesantez, Rafaela Quelal",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "santiago-pesantez-an-yl63",
+      "nombre": "Santiago Pesantez, Anne Schaufele, Sofie Pesantez",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "maria-pesantez-y7eh",
+      "nombre": "María Pesantez",
+      "saludo": "Sra.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "maria-antonieta-borj-5roi",
+      "nombre": "María Antonieta Borja, Matias Chacon, Martin Chacon",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "julio-pesantez-famil-6ix0",
+      "nombre": "Julio Pesantez, familia",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "jaime-cando-narcisa--gl98",
+      "nombre": "Jaime Cando, Narcisa Pesantez",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "jorge-villavicencio--ev8r",
+      "nombre": "Jorge Villavicencio, Laura Pesantez",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "francisco-villavicen-ze86",
+      "nombre": "Francisco Villavicencio",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "damian-motoche-tamar-663s",
+      "nombre": "Damian Motoche, Tamara Villavicencio, Luna Motoche, Sara Motoche",
+      "saludo": "",
+      "cantidadInvitaciones": 4,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "mateo-cando-domenica-n7xr",
+      "nombre": "Mateo Cando, Doménica Espinoza, Sebastian Cando",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "emilio-cando-bi70",
+      "nombre": "Emilio Cando",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "ruth-vidal-qe4w",
+      "nombre": "Ruth Vidal",
+      "saludo": "Sra.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "sebastian-rojas-mari-2c2o",
+      "nombre": "Sebastian Rojas, María Paz Perez, Caleb Rojas",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "lidia-patino-dfzt",
+      "nombre": "Lidia Patiño",
+      "saludo": "Sra.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "daniela-patino-geova-yzfd",
+      "nombre": "Daniela Patiño, Geovanny Marin",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "xavier-patino-daniel-9qqb",
+      "nombre": "Xavier Patiño, Daniela Vera, Martin Patiño, Tomas Patiño",
+      "saludo": "",
+      "cantidadInvitaciones": 4,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "luis-patino-gloria-b-zlge",
+      "nombre": "Luis Patiño, Gloria Bueno, Jostin Patiño , Kevin Patiño, Ismael Patiño",
+      "saludo": "",
+      "cantidadInvitaciones": 5,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "lilia-patino-karlita-l4zp",
+      "nombre": "Lilia Patiño, Karlita Guanuchi",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "armando-patino-carme-tuv1",
+      "nombre": "Armando Patiño, Carmen Saldaña, Samantha Patiño",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "maria-fernanda-cayam-0ko2",
+      "nombre": "María Fernanda Cayambe, Micaela Patiño",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "mishell-patino-crist-vjiy",
+      "nombre": "Mishell Patiño, Cristian Tenesaca",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "anita-quezada-fernan-3vfx",
+      "nombre": "Anita Quezada, Fernando Panjón",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "eladio-patino-a54i",
+      "nombre": "Eladio Patiño",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "mango-patino-sara-en-l8qc",
+      "nombre": "Mango Patiño , Sara Enríquez",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "marco-patino-blanca--tusr",
+      "nombre": "Marco Patiño, Blanca Carchi",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "marcia-patino-yfxi",
+      "nombre": "Marcia Patiño",
+      "saludo": "Sra.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "fredy-patino-pfmu",
+      "nombre": "Fredy Patiño",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "dyhogo-rojas-pu93",
+      "nombre": "Dyhogo Rojas",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "carlos-rojas-ligia-p-jcnm",
+      "nombre": "Carlos Rojas, Ligia Pesantez",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "brian-ochoa-veq4",
+      "nombre": "Brian Ochoa",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "andres-elaje-6o8n",
+      "nombre": "Andres Elaje",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "boris-mogrovejo-f0tl",
+      "nombre": "Boris Mogrovejo",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "marlon-cunalata-dani-0i98",
+      "nombre": "Marlon Cunalata, Daniela Ordoñez",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "paula-pani-ux26",
+      "nombre": "Paula Pañi",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "esteban-espinosa-rrc0",
+      "nombre": "Esteban Espinosa",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "karina-calle-edisson-pls2",
+      "nombre": "Karina Calle, Edisson Vargas",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "jenny-sarmiento-dann-w2ny",
+      "nombre": "Jenny Sarmiento, Danna Campoverde",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "carmen-timbe-klkn",
+      "nombre": "Carmen Timbe",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "melissa-diaz-ci93",
+      "nombre": "Melissa Diaz",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "belen-mendez-do6t",
+      "nombre": "Belén Mendez",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "andres-suarez-belen--ytlm",
+      "nombre": "Andres Suarez, Belen Ortiz",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "gabriela-sarmiento-a-btgs",
+      "nombre": "Gabriela Sarmiento, Alexander Berrezueta",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "fernanado-pesantez-p-0mle",
+      "nombre": "Fernanado Pesantez, Patricia Dávila",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "byron-bustamante-c0uo",
+      "nombre": "Byron Bustamante",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "dany-galarza-yelitza-hoc3",
+      "nombre": "Dany Galarza, Yelitza Naula",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "ma-fernanda-artieda-zl6i",
+      "nombre": "Ma. Fernanda Artieda",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "oswaldo-macas-diana--xtq0",
+      "nombre": "Oswaldo Macas, Diana Macas, Michelle Guaman",
+      "saludo": "",
+      "cantidadInvitaciones": 3,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "pamela-maldonado-431n",
+      "nombre": "Pamela Maldonado",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "cristina-sinchi-gxlp",
+      "nombre": "Cristina Sinchi",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "andy-aguire-gaby-vil-bcgg",
+      "nombre": "Andy Aguire, Gaby Villa",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "ronny-rojas-nicole-a-p6kr",
+      "nombre": "Ronny Rojas, Nicole Andrade",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "tabata-aviles-3wxy",
+      "nombre": "Tabata Aviles",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "steven-chimbo-urh7",
+      "nombre": "Steven Chimbo",
+      "saludo": "Sr.",
       "cantidadInvitaciones": 1,
       "incluyeCeremonia": false,
-      "mensaje": "",
-      "telefono": "593999000002"
+      "mensaje": ""
     },
     {
-      "id": "ari-juan-demo3",
-      "nombre": "Carlos Mora, Ana Vélez",
-      "saludo": "Queridos Carlos y Ana",
+      "id": "raquel-faican-pflm",
+      "nombre": "Raquel Faican",
+      "saludo": "Sra.",
       "cantidadInvitaciones": 2,
+      "incluyeCeremonia": false,
+      "mensaje": ""
+    },
+    {
+      "id": "ma-eliza-ordonez-m0e7",
+      "nombre": "Ma. Eliza Ordoñez",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": false,
+      "mensaje": ""
+    },
+    {
+      "id": "cristina-agudo-5h85",
+      "nombre": "Cristina Agudo",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": false,
+      "mensaje": ""
+    },
+    {
+      "id": "ma-del-cisne-faican-etvh",
+      "nombre": "Ma. Del Cisne Faican",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": false,
+      "mensaje": ""
+    },
+    {
+      "id": "estefania-orellana-j-slow",
+      "nombre": "Estefania Orellana, Jairo Brito",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": false,
+      "mensaje": ""
+    },
+    {
+      "id": "arelis-rodas-anf8",
+      "nombre": "Arelis Rodas",
+      "saludo": "Srta.",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": false,
+      "mensaje": ""
+    },
+    {
+      "id": "esteban-toalombo-ma--ybw1",
+      "nombre": "Esteban Toalombo, Ma. Paz Arias",
+      "saludo": "",
+      "cantidadInvitaciones": 2,
+      "incluyeCeremonia": false,
+      "mensaje": ""
+    },
+    {
+      "id": "felipe-maldonado-3fts",
+      "nombre": "Felipe Maldonado",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": false,
+      "mensaje": ""
+    },
+    {
+      "id": "gustavo-aguirre-pqy5",
+      "nombre": "Gustavo Aguirre",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
       "incluyeCeremonia": true,
-      "mensaje": "",
-      "telefono": "593999000003"
+      "mensaje": ""
+    },
+    {
+      "id": "richard-rojas-l0rp",
+      "nombre": "Richard Rojas",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "henry-lojano-wudf",
+      "nombre": "Henry Lojano",
+      "saludo": "Sr.",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "manuel-morales-loren-dbe4",
+      "nombre": "Manuel Morales, Lorena Rojas",
+      "saludo": "",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "victor-rojas-catalin-33wt",
+      "nombre": "Victor Rojas, Catalina Villalta",
+      "saludo": "",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "remigio-pesantez-luc-eax7",
+      "nombre": "Remigio Pesantez, Lucila Rojas",
+      "saludo": "",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
+    },
+    {
+      "id": "manuel-patino-alejan-hbwy",
+      "nombre": "Manuel Patiño, Alejandrina Miranda, Julia Patiño",
+      "saludo": "",
+      "cantidadInvitaciones": 1,
+      "incluyeCeremonia": true,
+      "mensaje": ""
     }
   ]
 }

@@ -17,11 +17,13 @@ function backendActivo(config) {
 
 async function cargarInvitados({ token } = {}) {
   const config = await cargarConfig();
-  if (backendActivo(config)) {
-    const url = new URL(config.backend.url);
-    url.searchParams.set('action', 'invitados');
-    if (token) url.searchParams.set('token', token);
+
+  // Con token (página admin): datos en vivo desde el backend, incluyen teléfonos.
+  if (token && backendActivo(config)) {
     try {
+      const url = new URL(config.backend.url);
+      url.searchParams.set('action', 'invitados');
+      url.searchParams.set('token', token);
       const resp = await fetch(url.toString());
       if (resp.ok) {
         const data = await resp.json();
@@ -29,13 +31,34 @@ async function cargarInvitados({ token } = {}) {
           return { invitados: data.invitados.map(normalizarInvitado) };
         }
       }
-      console.warn('Backend devolvió respuesta inesperada, usando JSON local');
+      console.warn('Backend devolvió respuesta inesperada para admin');
     } catch (e) {
-      console.warn('Falla al consultar backend, usando JSON local:', e);
+      console.warn('Falla al consultar backend (admin):', e);
     }
   }
+
+  // Lectura pública: lista estática publicada en GitHub Pages (rápida, sin teléfonos).
   const local = await cargarJSON('/data/invitados.json');
   return { invitados: (local.invitados || []).map(normalizarInvitado) };
+}
+
+// Consulta un invitado puntual en el backend (fallback para invitados agregados
+// a la Sheet que aún no están en el JSON estático publicado).
+async function obtenerInvitadoBackend(id) {
+  const config = await cargarConfig();
+  if (!backendActivo(config)) return null;
+  try {
+    const url = new URL(config.backend.url);
+    url.searchParams.set('action', 'invitado');
+    url.searchParams.set('id', id);
+    const resp = await fetch(url.toString());
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    return data && data.invitado ? normalizarInvitado(data.invitado) : null;
+  } catch (e) {
+    console.warn('Falla al consultar invitado en backend:', e);
+    return null;
+  }
 }
 
 // Construye el saludo de la invitación combinando el título (columna `saludo`:
@@ -113,8 +136,17 @@ function guardarInvitadoCache(id, invitado) {
 
 async function obtenerInvitado(id) {
   if (!id) return null;
+
+  // 1. Buscar en la lista estática (rápida).
   const data = await cargarInvitados();
-  const invitado = data.invitados.find(i => i.id === id) || null;
+  let invitado = data.invitados.find(i => i.id === id) || null;
+
+  // 2. Si no está (invitado recién agregado a la Sheet pero no exportado aún),
+  //    consultarlo puntualmente en el backend.
+  if (!invitado) {
+    invitado = await obtenerInvitadoBackend(id);
+  }
+
   if (invitado) {
     guardarInvitadoCache(id, invitado);
     // Cachear el tipo de invitación para que otras páginas (cronograma) muestren

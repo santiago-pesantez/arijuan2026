@@ -22,6 +22,9 @@ npx serve .
 # Asignar GUIDs faltantes (modo CLI sobre el JSON local; NO sobre la Sheet)
 node scripts/generar-guids.mjs
 node scripts/generar-guids.mjs data/invitados.json data/invitados.json
+
+# Publicar la lista de invitados como JSON estático (descarga del backend público, sin teléfonos)
+node scripts/exportar-invitados.mjs
 ```
 
 Para asignar GUIDs sobre la Sheet de producción, usar la función `generarGuidsFaltantes()` desde el editor de Apps Script (ver `docs/google-sheets-setup.md`).
@@ -34,10 +37,12 @@ Sitio web estático hosteado en GitHub Pages bajo el dominio `arijuan2026.com` (
 
 ### Flujo de datos
 
-1. Frontend hace `GET {backend.url}?action=invitados` para obtener la lista (sin teléfonos).
-2. La página de admin agrega `&token={ADMIN_TOKEN}` para obtener también los teléfonos.
-3. Al enviar RSVP: frontend hace `POST {backend.url}` con `{action: 'rsvp', ...}` ANTES de redirigir a `wa.me/{numero}?text=...`.
-4. Si `backend.habilitado` es false en `config.json`, todo lo de Sheets se reemplaza con el JSON local `data/invitados.json` (modo desarrollo). El RSVP igual va por wa.me, pero no se persiste en ningún lado.
+Lecturas (invitación/RSVP) son **estáticas** para que carguen rápido; las escrituras y los datos privados pasan por el backend.
+
+1. **Lectura pública (invitación, RSVP):** se lee la lista estática `data/invitados.json` (publicada en GitHub Pages, sin teléfonos). `obtenerInvitado(id)` busca ahí primero; si no encuentra el id, hace fallback al backend `GET {backend.url}?action=invitado&id=...` (para invitados agregados a la Sheet pero aún no exportados). Además hay cache local del invitado en localStorage (stale-while-revalidate) para que las reaperturas sean instantáneas.
+2. **Admin:** `cargarInvitados({token})` consulta el backend con `&token={ADMIN_TOKEN}` para obtener la lista con teléfonos en vivo.
+3. **RSVP:** `POST {backend.url}` con `{action: 'rsvp', ...}` ANTES de redirigir a `wa.me/{numero}?text=...`. Las respuestas se escriben en la pestaña `RSVPs`.
+4. `data/invitados.json` se regenera desde la Sheet con `node scripts/exportar-invitados.mjs` (descarga el endpoint público, quita teléfonos) y se commitea.
 
 ### Estructura de páginas
 
@@ -49,21 +54,22 @@ Sitio web estático hosteado en GitHub Pages bajo el dominio `arijuan2026.com` (
 ### Datos
 
 - `data/config.json`: configuración del evento (novios, fechas, lugares, número de WhatsApp para RSVP, dominio, URL del backend). **Toda la data configurable de la boda vive aquí.**
-- `data/invitados.json`: solo se usa como fallback para desarrollo local cuando `backend.habilitado` es false. Los datos reales viven en la Google Sheet.
+- `data/invitados.json`: **lista pública publicada** (copia de la Sheet sin teléfonos). Es la fuente de lectura del sitio para las invitaciones. Se regenera con `scripts/exportar-invitados.mjs`. La fuente de verdad sigue siendo la Google Sheet; este archivo es una copia para servir rápido.
 - `docs/apps-script.gs`: código completo del Apps Script que se pega en el editor de Google. NO se ejecuta desde el repo; es referencia.
 - `docs/google-sheets-setup.md`: instrucciones paso a paso para crear la Sheet, configurar el script y desplegar.
 
 ### Esquema de la Google Sheet
 
-Pestaña `Invitados`: `id, nombre, saludo, cantidadInvitaciones, incluyeCocktail, mensaje, telefono`.
+Pestaña `Invitados`: `id, nombre, saludo, cantidadInvitaciones, incluyeCeremonia, mensaje, telefono`. `incluyeCeremonia` TRUE = ceremonia + recepción; FALSE = solo recepción; vacío = TRUE. Todos van a la recepción. `nombre` admite varios nombres separados por coma.
 
-Pestaña `RSVPs` (solo escritura desde Apps Script): `timestamp, id_invitado, nombre_invitado, asistira, asistira_cocktail, acompanante, cantidad_asistentes, detalles_asistentes, mensaje, raw_json`.
+Pestaña `RSVPs` (solo escritura desde Apps Script): `timestamp, id_invitado, nombre_invitado, asistira_ceremonia, asistira_recepcion, acompanante, cantidad_asistentes, detalles_asistentes, cancion, mensaje, raw_json`.
 
 ### Capa de datos en frontend
 
 `assets/js/data.js` centraliza:
 - `cargarConfig(prefijo)`: cachea `config.json` en memoria.
-- `cargarInvitados(prefijo, {token})`: si `backend.habilitado`, fetch al endpoint; si no, fallback a JSON local.
+- `cargarInvitados({token})`: con token consulta el backend (admin, con teléfonos); sin token lee la lista estática `data/invitados.json`.
+- `obtenerInvitado(id)`: busca en la lista estática; si no está, fallback a `obtenerInvitadoBackend(id)`. Cachea el invitado en localStorage.
 - `enviarRSVPBackend(payload, prefijo)`: POST al endpoint con `Content-Type: text/plain` (evita preflight CORS de Apps Script).
 - `obtenerInvitado(id, prefijo)`, `obtenerIdInvitado()`: helpers.
 

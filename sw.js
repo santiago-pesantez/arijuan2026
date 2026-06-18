@@ -1,7 +1,7 @@
 // Service Worker de AriJuan2026
 // Cache offline para el shell del sitio + estrategia stale-while-revalidate.
 
-const VERSION = 'v12';
+const VERSION = 'v13';
 const CACHE_NAME = `arijuan-${VERSION}`;
 
 // Recursos que se descargan en la instalación (shell mínimo del sitio).
@@ -13,6 +13,8 @@ const PRECACHE = [
   '/boda/galeria/',
   '/boda/preguntas/',
   '/rsvp/',
+  '/data/config.json',
+  '/data/invitados.json',
   '/assets/css/styles.css',
   '/assets/js/data.js',
   '/assets/js/nav.js',

@@ -55,7 +55,7 @@ En "Confirmar asistencia" responden si asistirán. Si dicen que sí, se desplieg
 
 ## 3. Dónde viven los datos (Google Sheets)
 
-Toda la información real está en una Google Sheet con dos pestañas.
+La información real está en una Google Sheet con dos pestañas. Para que las invitaciones carguen rápido, una copia pública de la lista (sin teléfonos) se publica como archivo estático en el sitio; ver ["Publicar la lista"](#publicar-la-lista-para-que-cargue-rapido).
 
 ### Pestaña `Invitados` (la lista que tú mantienes)
 
@@ -136,7 +136,18 @@ Así, aunque el invitado olvide enviar el WhatsApp, la confirmación queda regis
 1. Abre la Google Sheet, pestaña `Invitados`.
 2. Agrega una fila con `nombre`, `cantidadInvitaciones`, `incluyeCeremonia` y `telefono`. Deja `id` vacío.
 3. Para generar los `id` (GUID) faltantes: en la Sheet, **Extensiones > Apps Script**, elige la función `generarGuidsFaltantes` y pulsa **Run**.
-4. Listo: el invitado ya aparece en `/admin/` y su enlace funciona.
+4. El invitado ya aparece en `/admin/` y su enlace funciona de inmediato (el sitio lo busca en el backend como respaldo).
+5. **Recomendado:** vuelve a publicar la lista para que su invitación cargue al instante (ver abajo).
+
+### Publicar la lista para que cargue rápido
+
+El sitio lee la lista de invitados desde un archivo estático (`data/invitados.json`) servido por GitHub Pages, lo que hace que las invitaciones abran casi al instante. Ese archivo es una copia pública (sin teléfonos) de la Google Sheet, y hay que regenerarlo cuando cambie la lista:
+
+1. En la carpeta del proyecto, ejecuta: `node scripts/exportar-invitados.mjs`
+   (descarga la lista actual desde la Sheet, sin teléfonos, y la guarda en `data/invitados.json`).
+2. Sube el cambio al repositorio (commit y push).
+
+Mientras no lo regeneres, los invitados nuevos siguen funcionando (el sitio los busca en el backend), solo que su primera carga es un poco más lenta.
 
 ### Cambiar a quién se invita a la ceremonia
 
