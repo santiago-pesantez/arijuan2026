@@ -22,6 +22,10 @@
     .btn-link { background: none; border: none; color: var(--color-oro); cursor: pointer; padding: 0; text-decoration: underline; font-size: inherit; font-family: inherit; }
     .estado { font-size: .85rem; color: var(--color-texto-suave); }
     main { text-align: left; }
+    #buscar { flex: 1; min-width: 240px; }
+    th.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+    th.sortable:hover { color: var(--color-oro); }
+    th .orden { font-size: .75em; color: var(--color-oro); margin-left: .15rem; }
   </style>
 </head>
 <body>
@@ -56,19 +60,29 @@
 
     <div class="panel">
       <h3 style="text-align:left; margin-top: 0">Invitados <span class="estado" id="contador"></span></h3>
+
+      <p id="bloqueo" class="estado">Ingresa tu token de admin arriba para ver la lista de invitados.</p>
+
+      <div id="tabla-invitados" hidden>
+      <div class="row" style="margin-bottom:.75rem">
+        <input type="text" id="buscar" placeholder="Buscar por nombre, ID o teléfono...">
+        <button type="button" class="btn-link" id="btn-limpiar">Limpiar</button>
+      </div>
       <table>
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>ID</th>
-            <th>Cupos</th>
-            <th>Teléfono</th>
+            <th class="sortable" data-campo="nombre">Nombre <span class="orden"></span></th>
+            <th class="sortable" data-campo="id">ID <span class="orden"></span></th>
+            <th class="sortable" data-campo="cupos">Cupos <span class="orden"></span></th>
+            <th class="sortable" data-campo="ceremonia">Ceremonia <span class="orden"></span></th>
+            <th class="sortable" data-campo="telefono">Teléfono <span class="orden"></span></th>
             <th>Link de invitación</th>
             <th>WhatsApp</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
       </table>
+      </div>
     </div>
   </main>
 

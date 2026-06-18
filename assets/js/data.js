@@ -38,20 +38,36 @@ async function cargarInvitados({ token } = {}) {
   return { invitados: (local.invitados || []).map(normalizarInvitado) };
 }
 
-// Construye el nombre que se muestra en la invitación a partir de la lista de
-// nombres separados por comas en el campo `nombre`:
+// Construye el saludo de la invitación combinando el título (columna `saludo`:
+// Sr, Sra, etc.) con el nombre derivado de la lista de nombres (campo `nombre`):
 // - 1 nombre  -> ese nombre
 // - 2 nombres -> "Nombre1 y Nombre2"
 // - 3 o más   -> "Nombre1 completo (nombre y apellido) y familia."
+// Si `saludo` es un título corto se antepone (ej: "Sra. Ariana Rojas").
+// Si `saludo` es una frase completa, se usa tal cual.
 function nombreParaInvitacion(invitado) {
   const nombres = String(invitado.nombre || '')
     .split(',')
     .map(n => n.trim())
     .filter(Boolean);
-  if (nombres.length === 0) return String(invitado.nombre || '').trim();
-  if (nombres.length === 1) return nombres[0];
-  if (nombres.length === 2) return `${nombres[0]} y ${nombres[1]}`;
-  return `${nombres[0]} y familia.`;
+
+  let nombreFmt;
+  if (nombres.length === 0) nombreFmt = String(invitado.nombre || '').trim();
+  else if (nombres.length === 1) nombreFmt = nombres[0];
+  else if (nombres.length === 2) nombreFmt = `${nombres[0]} y ${nombres[1]}`;
+  else nombreFmt = `${nombres[0]} y familia.`;
+
+  const saludo = (invitado.saludo || '').trim();
+  if (!saludo) return nombreFmt;
+
+  // Título corto (Sr, Sra, Srta, Sres, Dr...): anteponerlo al nombre.
+  if (saludo.length <= 6 && !saludo.includes(' ')) {
+    const conPunto = /[.,]$/.test(saludo) ? saludo : saludo + '.';
+    return nombreFmt ? `${conPunto} ${nombreFmt}` : conPunto;
+  }
+
+  // Saludo personalizado (frase completa): usarlo tal cual.
+  return saludo;
 }
 
 // Garantiza incluyeCeremonia con default true (todos invitados a la ceremonia)
