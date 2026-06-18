@@ -22,6 +22,9 @@ fotos/
 /img.png
 /screenshot*.png
 
+# Imágenes originales sin procesar (las versiones optimizadas .webp sí se commitean)
+assets/img/invitacion/ChatGPT*.png
+
 # Documentos de trabajo Word/Office y listas de invitados (datos privados)
 *.docx
 *.doc
