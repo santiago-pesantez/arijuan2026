@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//AriJuan2026//Boda Ariana y Juan//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:boda-ariana-juan-recepcion-2026-07-25@arijuan2026.com
+DTSTAMP:20260516T000000Z
+DTSTART:20260725T183000Z
+DTEND:20260725T220000Z
+SUMMARY:Recepción - Boda de Ariana y Juan
+LOCATION:Salón de Eventos y Recepciones La Muralla\, Baños\, Cuenca\, Ecuador
+DESCRIPTION:Recepción desde las 13:30. Más detalles en https://arijuan2026.com/boda/
+URL:https://arijuan2026.com/boda/
+GEO:-2.92317970;-79.06591490
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT1D
+ACTION:DISPLAY
+DESCRIPTION:Mañana es la boda de Ariana y Juan
+END:VALARM
+END:VEVENT
+END:VCALENDAR

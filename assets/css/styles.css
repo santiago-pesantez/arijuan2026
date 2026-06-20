@@ -398,6 +398,11 @@ a:hover { color: var(--color-acento); }
 /* Invitados solo a la recepción: el cronograma oculta la ceremonia */
 .sin-ceremonia #seccion-ceremonia { display: none; }
 
+/* Botón "Agregar al calendario" de la recepción: solo para invitados de solo recepción
+   (los demás usan el de la ceremonia, que arranca a las 10:30). */
+.solo-recepcion { display: none; }
+.sin-ceremonia .solo-recepcion { display: inline-block; }
+
 .evento .hora {
   font-family: var(--serif);
   font-size: 1.15rem;
