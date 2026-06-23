@@ -422,6 +422,15 @@ a:hover { color: var(--color-acento); }
   text-align: left;
 }
 
+/* Frase poética bajo cada evento del cronograma (centrada y en cursiva) */
+.evento .detalle-frase {
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--color-acento);
+}
+
 .evento .botones { margin: 1.25rem 0 0; }
 
 /* Galería */
