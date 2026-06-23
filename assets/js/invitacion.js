@@ -65,6 +65,9 @@ function pintarInvitacion(config, invitado) {
     const bloqueAlmuerzo = document.getElementById('bloque-almuerzo');
     if (config.almuerzo && bloqueAlmuerzo) {
       document.getElementById('almuerzo-hora').textContent = config.almuerzo.hora;
+      // El almuerzo es en el mismo lugar que la ceremonia.
+      document.getElementById('almuerzo-lugar').textContent = config.almuerzo.lugar || config.ceremonia.lugar;
+      document.getElementById('almuerzo-direccion').textContent = config.almuerzo.direccion || config.ceremonia.direccion;
       bloqueAlmuerzo.hidden = false;
     } else if (bloqueAlmuerzo) {
       bloqueAlmuerzo.hidden = true;
