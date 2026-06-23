@@ -19,8 +19,11 @@
     "direccion": "Baños, Cuenca",
     "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8"
   },
+  "almuerzo": {
+    "hora": "12:30"
+  },
   "recepcion": {
-    "hora": "13:30 en adelante",
+    "hora": "14:00 en adelante",
     "lugar": "Salón de Eventos y Recepciones La Muralla",
     "direccion": "Baños, Cuenca",
     "mapsUrl": "https://maps.app.goo.gl/4U5YrAEBExgDDoxb8",
